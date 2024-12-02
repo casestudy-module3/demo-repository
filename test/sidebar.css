@@ -1,0 +1,9 @@
+#menu, #menu a, #menu i, #menu span {
+    color: black !important;
+}
+#menu a.nav-link:hover {
+    font-weight: bold;
+}
+.sidebar{
+    background-color: aliceblue;
+}
