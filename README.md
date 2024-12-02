@@ -18,14 +18,3 @@ Dự án "Quản lý đặt vé sự kiện" giúp người quản lý có thể
     ```bash
     git clone https://github.com/casestudy-module3/demo-repository.git
     ```
-
-2. Cài đặt các phụ thuộc:
-    - Nếu bạn sử dụng Node.js, hãy cài đặt các gói phụ thuộc:
-      ```bash
-      npm install
-      ```
-
-3. Khởi động ứng dụng:
-    ```bash
-    npm start
-    ```
