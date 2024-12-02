@@ -12,17 +12,6 @@
 <head>
   <title>JSP - Hello World</title>
   <%@ include file="/WEB-INF/include/header.jsp"%>
-  <style>
-    #menu, #menu a, #menu i, #menu span {
-      color: black !important;
-    }
-    #menu a.nav-link:hover {
-      font-weight: bold;
-    }
-    .sidebar{
-      background-color: aliceblue !important;
-    }
-  </style>
 </head>
 <body>
 <div class="container-fluid">
