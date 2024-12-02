@@ -9,7 +9,7 @@
     <nav class="navbar">
         <div class="container-fluid">
             <form class="d-flex ms-auto" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="search" placeholder="Search Name" aria-label="Search">
                 <button class="btn btn-outline-success bi bi-search" type="submit"></button>
             </form>
         </div>
