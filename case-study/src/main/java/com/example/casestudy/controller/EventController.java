@@ -25,16 +25,24 @@ public class EventController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String eventName = req.getParameter("eventName");
-        LocalDate eventStart = LocalDate.parse(req.getParameter("eventStart"));
-        String imgEvent = req.getParameter("imgEvent");
-        String location = req.getParameter("location");
-        String description = req.getParameter("description");
-        Boolean isStatus = req.getParameter("isStatus").equals("1");
-        Integer ticketToSell = Integer.parseInt(req.getParameter("ticketToSell"));
-        Event newEvent = new Event(eventName, eventStart, imgEvent, location, description, isStatus, ticketToSell);
-        eventService.addEvent(newEvent);
-        resp.sendRedirect(req.getContextPath() + "/events");
+        String action = req.getParameter("action");
+
+        if ("delete".equals(action)) {
+            int id = Integer.parseInt(req.getParameter("id"));
+            eventService.deleteEvent(id);
+            resp.sendRedirect(req.getContextPath() + "/events");
+        } else {
+            String eventName = req.getParameter("eventName");
+            LocalDate eventStart = LocalDate.parse(req.getParameter("eventStart"));
+            String imgEvent = req.getParameter("imgEvent");
+            String location = req.getParameter("location");
+            String description = req.getParameter("description");
+            Boolean isStatus = req.getParameter("isStatus").equals("1");
+            Integer ticketToSell = Integer.parseInt(req.getParameter("ticketToSell"));
+            Event newEvent = new Event(eventName, eventStart, imgEvent, location, description, isStatus, ticketToSell);
+            eventService.addEvent(newEvent);
+            resp.sendRedirect(req.getContextPath() + "/events");
+        }
     }
 
 }

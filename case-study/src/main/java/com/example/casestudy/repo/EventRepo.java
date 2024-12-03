@@ -22,4 +22,7 @@ public class EventRepo {
         event.setIdEvents(events.size() + 1);
         events.add(event);
     }
+    public void deleteEvent(Integer id) {
+        events.removeIf(event -> event.getIdEvents().equals(id));
+    }
 }

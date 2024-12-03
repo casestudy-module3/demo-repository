@@ -47,7 +47,7 @@
               <td>${event.isStatus ? 'Active' : 'Inactive'}</td>
               <td>${event.ticketToSell}</td>
               <td><button type="button" class="btn btn-warning bi bi-pen" data-bs-toggle="modal" data-bs-target="#exampleModal${event.idEvents}" data-bs-whatever="@mdo"></button></td>
-              <td><button type="button" class="btn btn-danger bi bi-trash3"data-bs-toggle="modal" data-bs-target="#deleteEventModal${event.idEvents}"></button></td>
+              <td><button type="button" class="btn btn-danger bi bi-trash3"data-bs-toggle="modal" data-bs-target="#deleteEventModal" onclick="setEventId(${event.idEvents})"></button></td>
             </tr>
           </c:forEach>
           </tbody>
@@ -62,4 +62,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+<script>
+  function setEventId(eventId) {
+    document.getElementById("deleteEventId").value = eventId;
+  }
+</script>
 </html>

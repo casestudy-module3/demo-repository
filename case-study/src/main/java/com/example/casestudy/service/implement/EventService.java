@@ -14,7 +14,8 @@ public class EventService implements IEventService {
     public void addEvent(Event event) {
         eventRepo.addEvent(event);
     }
-//    public void removeEvent(Integer id) {
-//        eventRepo.deleteEvent(id);
-//    }
+    @Override
+    public void deleteEvent(Integer id) {
+        eventRepo.deleteEvent(id);
+    }
 }
