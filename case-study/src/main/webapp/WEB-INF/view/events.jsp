@@ -47,7 +47,7 @@
               <td>${event.isStatus ? 'Active' : 'Inactive'}</td>
               <td>${event.ticketToSell}</td>
               <td><button type="button" class="btn btn-warning bi bi-pen" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"></button></td>
-              <td><button type="button" class="btn btn-danger bi bi-trash3"data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button></td>
+              <td><button type="button" class="btn btn-danger bi bi-trash3"data-bs-toggle="modal" data-bs-target="#deleteEventModal"></button></td>
             </tr>
           </c:forEach>
           </tbody>
@@ -56,6 +56,7 @@
     </div>
   </div>
 </div>
+<%@include file="/WEB-INF/include/deleteEvent.jsp"%>
 <%@include file="/WEB-INF/include/addEvent.jsp"%>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
