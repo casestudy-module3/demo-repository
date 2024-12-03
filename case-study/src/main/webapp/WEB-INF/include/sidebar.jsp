@@ -27,7 +27,7 @@
                     <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Statistic</span></a>
             </li>
             <li>
-                <a href="customerView.html" class="nav-link px-0 align-middle">
+                <a href="/customers?action=customers" class="nav-link px-0 align-middle">
                     <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span> </a>
             </li>
         </ul>
