@@ -46,8 +46,8 @@
               <td>${event.description}</td>
               <td>${event.isStatus ? 'Active' : 'Inactive'}</td>
               <td>${event.ticketToSell}</td>
-              <td><button type="button" class="btn btn-warning bi bi-pen" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"></button></td>
-              <td><button type="button" class="btn btn-danger bi bi-trash3"data-bs-toggle="modal" data-bs-target="#deleteEventModal"></button></td>
+              <td><button type="button" class="btn btn-warning bi bi-pen" data-bs-toggle="modal" data-bs-target="#exampleModal${event.idEvents}" data-bs-whatever="@mdo"></button></td>
+              <td><button type="button" class="btn btn-danger bi bi-trash3"data-bs-toggle="modal" data-bs-target="#deleteEventModal${event.idEvents}"></button></td>
             </tr>
           </c:forEach>
           </tbody>
