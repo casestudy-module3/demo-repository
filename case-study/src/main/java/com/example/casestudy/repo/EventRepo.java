@@ -17,4 +17,7 @@ public class EventRepo {
     public List<Event> getEvents() {
         return events;
     }
+    public void upDate(Event event) {
+        events.set(events.indexOf(event), event);
+    }
 }
