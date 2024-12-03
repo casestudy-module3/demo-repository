@@ -17,4 +17,11 @@ public class EventRepo {
     public List<Event> getEvents() {
         return events;
     }
+    public void addEvent(Event event) {
+        event.setIdEvents(events.size() + 1);
+        events.add(event);
+    }
+    public void deleteEvent(Integer id){
+
+    }
 }
