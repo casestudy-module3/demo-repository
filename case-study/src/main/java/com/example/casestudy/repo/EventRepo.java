@@ -1,7 +1,7 @@
 package com.example.casestudy.repo;
 
 import com.example.casestudy.model.Event;
-
+import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -10,13 +10,25 @@ import java.util.List;
 
 public class EventRepo {
     private static List<Event> events=new ArrayList<>();
-    static {
-        events.add(new Event(1, "Concert ATSH", LocalDate.of(2024, 12, 1), "img/insta.png", "Đà Nẵng", "Music concert in Da Nang", true, 500));
-        events.add(new Event(2, "Art Exhibition", LocalDate.of(2024, 12, 5), "img/insta.png", "Hà Nội", "Art gallery showcasing local artists", false, 200));
-        events.add(new Event(3, "Tech Meetup", LocalDate.of(2024, 12, 10), "img/insta.png", "Hồ Chí Minh", "A meetup for tech enthusiasts", true, 150));
-    }
-
     public List<Event> getEvents() {
+        events.clear();
+        try {
+            PreparedStatement statement = Database.getConnection().prepareStatement("SELECT * FROM events_organized");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Integer id = resultSet.getInt("id");
+                String nameEvent = resultSet.getString("name_event");
+                String place = resultSet.getString("place");
+                LocalDate timeEvent = resultSet.getDate("time_event").toLocalDate();
+                String image = resultSet.getString("image");
+                Integer scope = resultSet.getInt("scope");
+                String descriptionEvent = resultSet.getString("description_event");
+                Boolean statusEvent = resultSet.getBoolean("status_event");
+                events.add(new Event(id,nameEvent,timeEvent,image,place,descriptionEvent,statusEvent,scope));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching events", e);
+        }
         return events;
     }
 
