@@ -34,5 +34,12 @@ public class EventRepo {
         }
         return filteredEvents;
     }
-
+    public Event getEventById(Integer id) {
+        for (Event event : events) {
+            if (event.getIdEvents().equals(id)) {
+                return event;
+            }
+        }
+        return null;
+    }
 }
