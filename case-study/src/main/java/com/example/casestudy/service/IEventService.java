@@ -10,4 +10,5 @@ public interface IEventService<T> {
     void deleteEvent(Integer id);
     List<T>searchEventByName(String name);
     public Event getEventById(Integer id);
+   boolean updateEvent(int id, Event event);
 }
