@@ -19,6 +19,7 @@ public class EventController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
         if (action == null) action = "";
         switch (action) {
@@ -28,6 +29,7 @@ public class EventController extends HttpServlet {
                 req.setAttribute("events", searchResults);
                 req.getRequestDispatcher("/WEB-INF/view/events.jsp").forward(req, resp);
                 break;
+
             default:
                 List<Event> events = eventService.getEvents();
                 req.setAttribute("events", events);
@@ -38,6 +40,7 @@ public class EventController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
         int id ;
         String eventName;
@@ -55,18 +58,8 @@ public class EventController extends HttpServlet {
                 resp.sendRedirect(req.getContextPath() + "/events");
                 break;
             case "update":
-                id = Integer.parseInt(req.getParameter("id"));
-                String name = req.getParameter("eventName");
-                LocalDate date = LocalDate.parse(req.getParameter("eventStart"));
-                imgEvent = req.getParameter("imgEvent");
-                location = req.getParameter("location");
-                description = req.getParameter("description");
-                isStatus = Boolean.parseBoolean(req.getParameter("status"));
-                ticketToSell = Integer.parseInt(req.getParameter("ticketToSell"));
-                Event changeEvent = new Event(name, date, imgEvent, location, description, isStatus, ticketToSell);
-                eventService.updateEvent(id,changeEvent);
-                resp.sendRedirect("/events");
-                default:
+
+            case "add":
                 eventName = req.getParameter("eventName");
                 eventStart = LocalDate.parse(req.getParameter("eventStart"));
                 imgEvent = req.getParameter("imgEvent");
