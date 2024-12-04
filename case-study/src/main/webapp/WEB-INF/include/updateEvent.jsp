@@ -13,6 +13,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <form id="editEventForm" action="${pageContext.request.contextPath}/events" method="post">
+          <input type="hidden" name="action" value="edit" />
+          <input type="hidden" id="idEvent" name="id" value="${events.id}" />
         <form id="addEventForm" action="/events?action=edit" method="post">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Name Events:</label>
