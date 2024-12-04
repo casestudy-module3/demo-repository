@@ -54,7 +54,19 @@ public class EventController extends HttpServlet {
                 eventService.deleteEvent(id);
                 resp.sendRedirect(req.getContextPath() + "/events");
                 break;
-            default:
+            case "update":
+                id = Integer.parseInt(req.getParameter("id"));
+                String name = req.getParameter("eventName");
+                LocalDate date = LocalDate.parse(req.getParameter("eventStart"));
+                imgEvent = req.getParameter("imgEvent");
+                location = req.getParameter("location");
+                description = req.getParameter("description");
+                isStatus = Boolean.parseBoolean(req.getParameter("status"));
+                ticketToSell = Integer.parseInt(req.getParameter("ticketToSell"));
+                Event changeEvent = new Event(name, date, imgEvent, location, description, isStatus, ticketToSell);
+                eventService.updateEvent(id,changeEvent);
+                resp.sendRedirect("/events");
+                default:
                 eventName = req.getParameter("eventName");
                 eventStart = LocalDate.parse(req.getParameter("eventStart"));
                 imgEvent = req.getParameter("imgEvent");

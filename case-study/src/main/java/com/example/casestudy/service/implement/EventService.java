@@ -24,4 +24,10 @@ public class EventService implements IEventService {
     public Event getEventById(Integer id) {
         return eventRepo.getEventById(id);
     }
+
+    @Override
+    public boolean updateEvent(int id, Event event) {
+         eventRepo.updateEvent(id, event);
+         return true;
+    }
 }
