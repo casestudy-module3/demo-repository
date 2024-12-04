@@ -25,4 +25,14 @@ public class EventRepo {
     public void deleteEvent(Integer id) {
         events.removeIf(event -> event.getIdEvents().equals(id));
     }
+    public List<Event>searchEventByName(String name){
+        List<Event> filteredEvents = new ArrayList<>();
+        for (Event event : events) {
+            if (event.getEventName().toLowerCase().contains(name.toLowerCase())) {
+                filteredEvents.add(event);
+            }
+        }
+        return filteredEvents;
+    }
+
 }

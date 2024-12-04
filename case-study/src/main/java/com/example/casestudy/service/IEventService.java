@@ -8,5 +8,6 @@ public interface IEventService<T> {
     List<T> getEvents();
     void addEvent(Event event);
     void deleteEvent(Integer id);
-
+    List<T>searchEventByName(String name);
+    void updateEvent(Event event);
 }

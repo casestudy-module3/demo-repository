@@ -18,9 +18,17 @@ public class EventController extends HttpServlet {
     private static IEventService eventService = new EventService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Event> events=eventService.getEvents();
-        req.setAttribute("events", events);
-        req.getRequestDispatcher("/WEB-INF/view/events.jsp").forward(req, resp);
+        String action=req.getParameter("action");
+        if("search".equals(action)){
+            String name = req.getParameter("name");
+            List<Event> searchResults = eventService.searchEventByName(name);
+            req.setAttribute("events", searchResults);
+            req.getRequestDispatcher("/WEB-INF/view/events.jsp").forward(req, resp);
+        }else {
+            List<Event> events = eventService.getEvents();
+            req.setAttribute("events", events);
+            req.getRequestDispatcher("/WEB-INF/view/events.jsp").forward(req, resp);
+        }
     }
 
     @Override

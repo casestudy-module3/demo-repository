@@ -18,4 +18,12 @@ public class EventService implements IEventService {
     public void deleteEvent(Integer id) {
         eventRepo.deleteEvent(id);
     }
+    public List<Event> searchEventByName(String name) {
+        return eventRepo.searchEventByName(name);
+    }
+
+    @Override
+    public void updateEvent(Event event) {
+        
+    }
 }
