@@ -13,7 +13,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="addEventForm" action="${pageContext.request.contextPath}/events" method="post">
+        <form id="addEventForm" action="/events?action=add" method="post">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Name Events:</label>
             <input type="text" class="form-control" id="recipient-name" name="eventName">

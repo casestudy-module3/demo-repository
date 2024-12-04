@@ -33,42 +33,72 @@ public class EventRepo {
     }
 
     public void addEvent(Event event) {
-        event.setIdEvents(events.size() + 1);
-        events.add(event);
+        try {
+            PreparedStatement statement = Database.getConnection().prepareStatement(
+                    "INSERT INTO events_organized (name_event, time_event, image, place, description_event, status_event, scope) VALUES (?, ?, ?, ?, ?, ?, ?)"
+            );
+            statement.setString(1, event.getEventName());
+            statement.setDate(2, java.sql.Date.valueOf(event.getEventStart()));
+            statement.setString(3, event.getImgEvent());
+            statement.setString(4, event.getLocation());
+            statement.setString(5, event.getDescription());
+            statement.setBoolean(6, event.getIsStatus());
+            statement.setInt(7, event.getTicketToSell());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error adding event", e);
+        }
     }
     public void deleteEvent(Integer id) {
-        events.removeIf(event -> event.getIdEvents().equals(id));
+        try {
+            PreparedStatement statement = Database.getConnection().prepareStatement("DELETE FROM events_organized WHERE id = ?");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting event", e);
+        }
     }
-    public List<Event>searchEventByName(String name){
+    public List<Event> searchEventByName(String name) {
         List<Event> filteredEvents = new ArrayList<>();
-        for (Event event : events) {
-            if (event.getEventName().toLowerCase().contains(name.toLowerCase())) {
-                filteredEvents.add(event);
+        try {
+            PreparedStatement statement = Database.getConnection().prepareStatement(
+                    "SELECT * FROM events_organized WHERE name_event LIKE ?"
+            );
+            statement.setString(1, "%" + name + "%");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Integer id = resultSet.getInt("id");
+                String nameEvent = resultSet.getString("name_event");
+                String place = resultSet.getString("place");
+                LocalDate timeEvent = resultSet.getDate("time_event").toLocalDate();
+                String image = resultSet.getString("image");
+                Integer scope = resultSet.getInt("scope");
+                String descriptionEvent = resultSet.getString("description_event");
+                Boolean statusEvent = resultSet.getBoolean("status_event");
+                filteredEvents.add(new Event(id, nameEvent, timeEvent, image, place, descriptionEvent, statusEvent, scope));
             }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error searching events", e);
         }
         return filteredEvents;
     }
-    public Event getEventById(Integer id) {
-        for (Event event : events) {
-            if (event.getIdEvents().equals(id)) {
-                return event;
-            }
-        }
-        return null;
-    }
-    public void updateEvent(int id, Event event){
+    public void updateEvent(Event event) {
         try {
-            PreparedStatement statement = Database.getConnection().prepareStatement("update events_organized set name =?, place=?, time_event=?, image=?, scope=?, description_event=? where id=?");
+            PreparedStatement statement = Database.getConnection().prepareStatement(
+                    "UPDATE events_organized SET name_event = ?, time_event = ?, image = ?, place = ?, description_event = ?, status_event = ?, scope = ? WHERE id = ?"
+            );
             statement.setString(1, event.getEventName());
-            statement.setString(2, event.getLocation());
-            statement.setString(3, String.valueOf(event.getEventStart()));
-            statement.setString(4, event.getImgEvent());
-            statement.setInt(5, event.getTicketToSell());
-            statement.setString(6, event.getDescription());
-            statement.setInt(7, id);
-
+            statement.setDate(2, java.sql.Date.valueOf(event.getEventStart()));
+            statement.setString(3, event.getImgEvent());
+            statement.setString(4, event.getLocation());
+            statement.setString(5, event.getDescription());
+            statement.setBoolean(6, event.getIsStatus());
+            statement.setInt(7, event.getTicketToSell());
+            statement.setInt(8, event.getIdEvents()); // Lấy id từ đối tượng event
+            statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error");
+            throw new RuntimeException("Error updating event", e);
         }
     }
+
 }

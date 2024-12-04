@@ -11,7 +11,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <form method="post" action="events" id="deleteEventForm">
+                <form method="post" action="events?action=delete" id="deleteEventForm">
                     <input type="hidden" name="action" value="delete">
                     <input type="hidden" name="id" id="deleteEventId"> <!-- Phần tử này sẽ nhận giá trị ID sự kiện -->
                     <button type="submit" class="btn btn-danger">Delete</button>
