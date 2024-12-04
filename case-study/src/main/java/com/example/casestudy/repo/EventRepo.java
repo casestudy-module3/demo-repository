@@ -94,7 +94,7 @@ public class EventRepo {
             statement.setString(5, event.getDescription());
             statement.setBoolean(6, event.getIsStatus());
             statement.setInt(7, event.getTicketToSell());
-            statement.setInt(8, event.getIdEvents()); // Lấy id từ đối tượng event
+            statement.setInt(8, event.getIdEvents());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Error updating event", e);
