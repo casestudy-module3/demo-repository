@@ -8,7 +8,7 @@ time_event datetime not null,
 image varchar(50),
 scope int not null,
 description_event varchar(200) not null,
-status_event varchar(10) not null
+status_event boolean not null
 );
 create table event_tickets_sale(
 id int primary key auto_increment,
@@ -42,14 +42,14 @@ id int primary key auto_increment,
 name_customer varchar(50) not null,
 email varchar(50) not null,
 phone_number int not null,
-status_customer varchar(10)
+status_customer boolean not null
 );
 
 INSERT INTO events_organized (name_event, place, time_event, image, scope, description_event, status_event) 
 VALUES 
-('Music Festival', 'Central Park', '2024-12-10 18:00:00', 'music_fest.jpg', 500, 'A grand music festival featuring famous artists.', 'active'),
-('Tech Expo', 'Tech Arena', '2024-12-15 10:00:00', 'tech_expo.png', 300, 'A technology exhibition showcasing innovations.', 'active'),
-('Book Fair', 'City Library', '2024-12-20 09:00:00', 'book_fair.jpg', 200, 'Annual book fair with discounts.', 'upcoming');
+('Music Festival', 'Central Park', '2024-12-10 18:00:00', 'music_fest.jpg', 500, 'A grand music festival featuring famous artists.', true),
+('Tech Expo', 'Tech Arena', '2024-12-15 10:00:00', 'tech_expo.png', 300, 'A technology exhibition showcasing innovations.', true),
+('Book Fair', 'City Library', '2024-12-20 09:00:00', 'book_fair.jpg', 200, 'Annual book fair with discounts.', false);
 INSERT INTO ticket_types (name_ticket) 
 VALUES 
 ('VIP'), 
@@ -62,9 +62,9 @@ VALUES
 (3, 25.000);
 INSERT INTO customers (name_customer, email, phone_number, status_customer) 
 VALUES 
-('John Doe', 'johndoe@example.com', 123456789, 'active'),
-('Jane Smith', 'janesmith@example.com', 987654321, 'active'),
-('Alice Brown', 'alicebrown@example.com', 456123789, 'inactive');
+('John Doe', 'johndoe@example.com', 123456789, true),
+('Jane Smith', 'janesmith@example.com', 987654321, false),
+('Alice Brown', 'alicebrown@example.com', 456123789, true);
 INSERT INTO tickets (id_price, time_book, id_event, id_customer) 
 VALUES 
 (1, '2024-12-01 10:00:00', 1, 1), 

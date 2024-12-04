@@ -49,8 +49,7 @@
                             <td>
                                 <button type="button" class="btn btn-warning bi bi-pen"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#editEventModal" ;
-                                </button>
+                                        data-bs-target="#editEventModal"></button>
                             </td>
 
                             <td>

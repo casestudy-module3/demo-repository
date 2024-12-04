@@ -1,6 +1,7 @@
 package com.example.casestudy.controller;
 
 import com.example.casestudy.model.Event;
+import com.example.casestudy.repo.Database;
 import com.example.casestudy.service.IEventService;
 import com.example.casestudy.service.implement.EventService;
 
@@ -38,35 +39,33 @@ public class EventController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
-        int id ;
-        String eventName;
-        LocalDate eventStart;
-        String imgEvent;
-        String location ;
-        String description;
-        Boolean isStatus ;
-        Integer ticketToSell;
-        if (action == null) action = "";
-        switch (action) {
-            case "delete":
-                id = Integer.parseInt(req.getParameter("id"));
-                eventService.deleteEvent(id);
-                resp.sendRedirect(req.getContextPath() + "/events");
-                break;
-            default:
-                eventName = req.getParameter("eventName");
-                eventStart = LocalDate.parse(req.getParameter("eventStart"));
-                imgEvent = req.getParameter("imgEvent");
-                location = req.getParameter("location");
-                description = req.getParameter("description");
-                isStatus = req.getParameter("isStatus").equals("1");
-                ticketToSell = Integer.parseInt(req.getParameter("ticketToSell"));
-                Event newEvent = new Event(eventName, eventStart, imgEvent, location, description, isStatus, ticketToSell);
-                eventService.addEvent(newEvent);
-                resp.sendRedirect(req.getContextPath() + "/events");
-                break;
+//        String action = req.getParameter("action");
+//        int id ;
+//        String eventName;
+//        LocalDate eventStart;
+//        String imgEvent;
+//        String location ;
+//        String description;
+//        Boolean isStatus ;
+//        Integer ticketToSell;
+//        if (action == null) action = "";
+//        switch (action) {
+//            case "delete":
+//                id = Integer.parseInt(req.getParameter("id"));
+//                eventService.deleteEvent(id);
+//                resp.sendRedirect(req.getContextPath() + "/events");
+//                break;
+//            default:
+//                eventName = req.getParameter("eventName");
+//                eventStart = LocalDate.parse(req.getParameter("eventStart"));
+//                imgEvent = req.getParameter("imgEvent");
+//                location = req.getParameter("location");
+//                description = req.getParameter("description");
+//                isStatus = req.getParameter("isStatus").equals("1");
+//                ticketToSell = Integer.parseInt(req.getParameter("ticketToSell"));
+//                Event newEvent = new Event(eventName, eventStart, imgEvent, location, description, isStatus, ticketToSell);
+//                eventService.addEvent(newEvent);
+//                resp.sendRedirect(req.getContextPath() + "/events");
+//                break;
         }
     }
-
-}
