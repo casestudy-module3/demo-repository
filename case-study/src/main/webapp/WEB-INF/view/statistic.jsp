@@ -21,7 +21,7 @@
       <%@include file="/WEB-INF/include/search.jsp" %>
       <div class="container">
         <h2>Statistic</h2>
-        <div class="d-flex justify-content-left align-items-center mb-3 mt-3">
+        <div class="d-flex justify-content-end align-items-center mb-3 mt-3">
           <a href="<%= request.getContextPath() %>/exportStatistics?action=export" class="btn btn-primary bi bi-file-earmark-arrow-down"></a>
         </div>
         <div class="row">
