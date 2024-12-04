@@ -24,4 +24,5 @@ public class Database {
     public static Connection getConnection() {
         return connection;
     }
+
 }

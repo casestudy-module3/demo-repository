@@ -41,6 +41,9 @@ public class EventController extends HttpServlet {
                 req.setAttribute("events", searchResults);
                 req.getRequestDispatcher("/WEB-INF/view/events.jsp").forward(req, resp);
                 break;
+            case "edit":
+                req.getRequestDispatcher("/WEB-INF/view/events.jsp").forward(req, resp);
+                break;
 
             default:
                 List<Event> events = eventService.getEvents();
@@ -69,6 +72,30 @@ public class EventController extends HttpServlet {
                 eventService.deleteEvent(id);
                 resp.sendRedirect(req.getContextPath() + "/events");
                 break;
+            case "edit":
+                id = Integer.parseInt(req.getParameter("id"));
+                String name = req.getParameter("eventName");
+                LocalDate date = LocalDate.parse(req.getParameter("eventStart"));
+                imgEvent = req.getParameter("imgEvent");
+                location = req.getParameter("location");
+                description = req.getParameter("description");
+                isStatus = Boolean.parseBoolean(req.getParameter("status"));
+                ticketToSell = Integer.parseInt(req.getParameter("ticketToSell"));
+                Event changeEvent = new Event(name, date, imgEvent, location, description, isStatus, ticketToSell);
+                eventService.updateEvent(id,changeEvent);
+                resp.sendRedirect("/events");
+//                default:
+//                eventName = req.getParameter("eventName");
+//                eventStart = LocalDate.parse(req.getParameter("eventStart"));
+//                imgEvent = req.getParameter("imgEvent");
+//                location = req.getParameter("location");
+//                description = req.getParameter("description");
+//                isStatus = req.getParameter("isStatus").equals("1");
+//                ticketToSell = Integer.parseInt(req.getParameter("ticketToSell"));
+//                Event newEvent = new Event(eventName, eventStart, imgEvent, location, description, isStatus, ticketToSell);
+//                eventService.addEvent(newEvent);
+//                resp.sendRedirect(req.getContextPath() + "/events");
+//                break;
             case "update":
 
             case "add":

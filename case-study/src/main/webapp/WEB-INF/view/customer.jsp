@@ -42,7 +42,7 @@
                             <td>${customer.name}</td>
                             <td>${customer.email}</td>
                             <td>${customer.phone}</td>
-                            <td>${customer.status}</td>
+                            <td>${customer.status ? 'Paid' : 'Not Yet'}</td>
                             <td>${customer.typeTicket}</td>
                             <td>${customer.date}</td>
                             <td>${customer.numberTickets}</td>
