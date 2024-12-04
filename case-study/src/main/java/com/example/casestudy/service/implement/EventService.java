@@ -13,23 +13,18 @@ public class EventService implements IEventService {
     public List<Event> getEvents() {
         return eventRepo.getEvents();
     }
-    @Override
-    public Event findById(int id) {
-        events =eventRepo.getEvents();
-        for(int i = 0; i<events.size(); i++){
-            if(events.get(i).getIdEvents() == id){
-                return events.get(i);
-            }
-        }
-        return null;
+    public void addEvent(Event event) {
+        eventRepo.addEvent(event);
     }
+
 
     @Override
     public boolean updateEvent(int id, Event event) {
-        if(findById(id) != null){
-            eventRepo.upDate(event);
+            eventRepo.updateEvent(id, event);
             return true;
         }
-        return false;
-    }
+
+//    public void removeEvent(Integer id) {
+//        eventRepo.deleteEvent(id);
+//    }
 }

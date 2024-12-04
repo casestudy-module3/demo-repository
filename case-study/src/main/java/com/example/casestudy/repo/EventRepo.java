@@ -2,6 +2,8 @@ package com.example.casestudy.repo;
 
 import com.example.casestudy.model.Event;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,24 @@ public class EventRepo {
     public List<Event> getEvents() {
         return events;
     }
-    public void upDate(Event event) {
-        events.set(events.indexOf(event), event);
+
+    public void addEvent(Event event) {
+        event.setIdEvents(events.size() + 1);
+        events.add(event);
+    }
+    public void updateEvent(int id, Event event){
+        try {
+            PreparedStatement statement = Database.getConnection().prepareStatement("update events_organized set name =?, place=?, time_event=?, image=?, scope=?, description_event=? where id=?");
+            statement.setString(1, event.getEventName());
+            statement.setString(2, event.getLocation());
+            statement.setString(3, String.valueOf(event.getEventStart()));
+            statement.setString(4, event.getImgEvent());
+            statement.setInt(5, event.getTicketToSell());
+            statement.setString(6, event.getDescription());
+            statement.setInt(7, id);
+
+        } catch (SQLException e) {
+            System.out.println("Error");
+        }
     }
 }

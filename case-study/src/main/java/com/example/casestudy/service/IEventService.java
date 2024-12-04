@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface IEventService<T> {
     List<T> getEvents();
-    Event findById(int id);
+    void addEvent(Event event);
+//    void removeEvent(Integer id);
     boolean updateEvent(int id, Event event);
 }

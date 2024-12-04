@@ -18,9 +18,22 @@ public class EventController extends HttpServlet {
     private static IEventService eventService = new EventService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Event> events=eventService.getEvents();
-        req.setAttribute("events", events);
-        req.getRequestDispatcher("/WEB-INF/view/events.jsp").forward(req, resp);
+        req.setCharacterEncoding("UTF-8");
+        String action = req.getParameter("action");
+        if(action==null){
+            action="";
+        }
+        switch (action){
+            case "add":
+                break;
+            case "update":
+                req.getRequestDispatcher("WEB-INF/views/events/update.jsp").forward(req, resp);
+            default:
+                List<Event> events=eventService.getEvents();
+                req.setAttribute("events", events);
+                req.getRequestDispatcher("/WEB-INF/view/events.jsp").forward(req, resp);
+        }
+
     }
 
     @Override
@@ -35,6 +48,7 @@ public class EventController extends HttpServlet {
         Event newEvent = new Event(eventName, eventStart, imgEvent, location, description, isStatus, ticketToSell);
         eventService.addEvent(newEvent);
         resp.sendRedirect(req.getContextPath() + "/events");
+
     }
 
 }
