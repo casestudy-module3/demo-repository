@@ -1,0 +1,82 @@
+create database management_event;
+use management_event;
+create table events_organized(
+id int primary key auto_increment,
+name_event varchar(50),
+place varchar(30),
+time_event datetime not null,
+image varchar(50),
+scope int not null,
+description_event varchar(200) not null,
+status_event varchar(10) not null
+);
+create table event_tickets_sale(
+id int primary key auto_increment,
+id_event int not null,
+id_ticket int not null,
+foreign key (id_event) references events_organized(id),
+foreign key (id_ticket) references tickets(id)
+);
+create table ticket_types(
+id int primary key auto_increment,
+name_ticket varchar(10)
+);
+create table price_tickets(
+id_price_ticket int primary key auto_increment,
+id_ticket_type int not null,
+price decimal(15,3) not null,
+foreign key(id_ticket_type) references ticket_types(id)
+);
+create table tickets(
+id int primary key auto_increment,
+id_price int not null,
+time_book datetime not null,
+id_event int not null,
+id_customer int not null,
+foreign key(id_price) references price_tickets(id_price_ticket),
+foreign key(id_event) references events_organized(id),
+foreign key(id_customer) references customers(id)
+);
+create table customers(
+id int primary key auto_increment,
+name_customer varchar(50) not null,
+email varchar(50) not null,
+phone_number int not null,
+status_customer varchar(10)
+);
+
+INSERT INTO events_organized (name_event, place, time_event, image, scope, description_event, status_event) 
+VALUES 
+('Music Festival', 'Central Park', '2024-12-10 18:00:00', 'music_fest.jpg', 500, 'A grand music festival featuring famous artists.', 'active'),
+('Tech Expo', 'Tech Arena', '2024-12-15 10:00:00', 'tech_expo.png', 300, 'A technology exhibition showcasing innovations.', 'active'),
+('Book Fair', 'City Library', '2024-12-20 09:00:00', 'book_fair.jpg', 200, 'Annual book fair with discounts.', 'upcoming');
+INSERT INTO ticket_types (name_ticket) 
+VALUES 
+('VIP'), 
+('Standard'), 
+('Student');
+INSERT INTO price_tickets (id_ticket_type, price) 
+VALUES 
+(1, 150.000), 
+(2, 50.000), 
+(3, 25.000);
+INSERT INTO customers (name_customer, email, phone_number, status_customer) 
+VALUES 
+('John Doe', 'johndoe@example.com', 123456789, 'active'),
+('Jane Smith', 'janesmith@example.com', 987654321, 'active'),
+('Alice Brown', 'alicebrown@example.com', 456123789, 'inactive');
+INSERT INTO tickets (id_price, time_book, id_event, id_customer) 
+VALUES 
+(1, '2024-12-01 10:00:00', 1, 1), 
+(2, '2024-12-02 11:00:00', 2, 2), 
+(3, '2024-12-03 09:30:00', 3, 3);
+INSERT INTO event_tickets_sale (id_event, id_ticket) 
+VALUES 
+(1, 1), 
+(2, 2), 
+(3, 3);
+
+
+
+
+
