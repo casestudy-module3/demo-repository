@@ -58,7 +58,7 @@ public class EventRepo {
     }
     public void updateEvent(int id, Event event){
         try {
-            PreparedStatement statement = Database.getConnection().prepareStatement("update events_organized set name =?, place=?, time_event=?, image=?, scope=?, description_event=? where id=?");
+            PreparedStatement statement = Database.getConnection().prepareStatement("update events_organized set name_event =?, place=?, time_event=?, image=?, scope=?, description_event=? where id=?");
             statement.setString(1, event.getEventName());
             statement.setString(2, event.getLocation());
             statement.setString(3, String.valueOf(event.getEventStart()));
@@ -66,7 +66,7 @@ public class EventRepo {
             statement.setInt(5, event.getTicketToSell());
             statement.setString(6, event.getDescription());
             statement.setInt(7, id);
-
+            statement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error");
         }

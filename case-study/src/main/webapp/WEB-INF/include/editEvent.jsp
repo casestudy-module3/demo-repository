@@ -8,7 +8,7 @@
       <div class="modal-body">
         <form id="editEventForm" action="${pageContext.request.contextPath}/events" method="post">
           <input type="hidden" name="action" value="edit" />
-          <input type="hidden" id="idEvent" name="id" />
+          <input type="hidden" id="idEvent" name="id" value="${events.id}" />
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Name Events:</label>
             <input type="text" class="form-control" id="recipient-name" name="eventName" required>

@@ -19,6 +19,7 @@ public class EventController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
         if (action == null) action = "";
         switch (action) {
@@ -26,6 +27,9 @@ public class EventController extends HttpServlet {
                 String name = req.getParameter("name");
                 List<Event> searchResults = eventService.searchEventByName(name);
                 req.setAttribute("events", searchResults);
+                req.getRequestDispatcher("/WEB-INF/view/events.jsp").forward(req, resp);
+                break;
+            case "edit":
                 req.getRequestDispatcher("/WEB-INF/view/events.jsp").forward(req, resp);
                 break;
             default:
@@ -38,6 +42,7 @@ public class EventController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
         int id ;
         String eventName;
@@ -54,7 +59,7 @@ public class EventController extends HttpServlet {
                 eventService.deleteEvent(id);
                 resp.sendRedirect(req.getContextPath() + "/events");
                 break;
-            case "update":
+            case "edit":
                 id = Integer.parseInt(req.getParameter("id"));
                 String name = req.getParameter("eventName");
                 LocalDate date = LocalDate.parse(req.getParameter("eventStart"));
@@ -66,18 +71,18 @@ public class EventController extends HttpServlet {
                 Event changeEvent = new Event(name, date, imgEvent, location, description, isStatus, ticketToSell);
                 eventService.updateEvent(id,changeEvent);
                 resp.sendRedirect("/events");
-                default:
-                eventName = req.getParameter("eventName");
-                eventStart = LocalDate.parse(req.getParameter("eventStart"));
-                imgEvent = req.getParameter("imgEvent");
-                location = req.getParameter("location");
-                description = req.getParameter("description");
-                isStatus = req.getParameter("isStatus").equals("1");
-                ticketToSell = Integer.parseInt(req.getParameter("ticketToSell"));
-                Event newEvent = new Event(eventName, eventStart, imgEvent, location, description, isStatus, ticketToSell);
-                eventService.addEvent(newEvent);
-                resp.sendRedirect(req.getContextPath() + "/events");
-                break;
+//                default:
+//                eventName = req.getParameter("eventName");
+//                eventStart = LocalDate.parse(req.getParameter("eventStart"));
+//                imgEvent = req.getParameter("imgEvent");
+//                location = req.getParameter("location");
+//                description = req.getParameter("description");
+//                isStatus = req.getParameter("isStatus").equals("1");
+//                ticketToSell = Integer.parseInt(req.getParameter("ticketToSell"));
+//                Event newEvent = new Event(eventName, eventStart, imgEvent, location, description, isStatus, ticketToSell);
+//                eventService.addEvent(newEvent);
+//                resp.sendRedirect(req.getContextPath() + "/events");
+//                break;
         }
     }
 

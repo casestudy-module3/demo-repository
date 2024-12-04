@@ -9,7 +9,7 @@ import java.util.List;
 public class CustomerService implements ICustomerService {
     private static CustomerRepo customerRepo = new CustomerRepo();
     @Override
-    public List<Customer> findAll() {
-      return  customerRepo.findAll();
+    public List<Customer> getAll() {
+        return  customerRepo.getCustomers();
     }
 }
