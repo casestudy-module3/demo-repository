@@ -13,9 +13,9 @@ public class EventService implements IEventService {
     public List<Event> getEvents() {
         return eventRepo.getEvents();
     }
-    public void addEvent(Event event) {
-        eventRepo.addEvent(event);
-    }
+//    public void addEvent(Event event) {
+//        eventRepo.addEvent(event);
+//    }
 
 
     @Override
