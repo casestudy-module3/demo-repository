@@ -8,47 +8,47 @@
       <div class="modal-body">
         <form id="editEventForm" action="${pageContext.request.contextPath}/events" method="post">
           <input type="hidden" name="action" value="edit" />
-          <input type="hidden" id="idEvent" name="id" value="${event.idEvents}" />
+          <input type="hidden" id="idEvent" name="id" />
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Name Events:</label>
-            <input type="text" class="form-control" id="recipient-name" name="eventName" value="${event.eventName}" required>
+            <input type="text" class="form-control" id="recipient-name" name="eventName" required>
           </div>
           <div class="mb-3">
             <label for="date-time" class="col-form-label">Date-Time:</label>
-            <input type="date" id="date-time" class="form-control" name="eventStart" value="${event.eventStart}" required>
+            <input type="date" id="date-time" class="form-control" name="eventStart" required>
           </div>
 
           <!-- Hình ảnh -->
           <div class="mb-3">
             <label for="img-text" class="col-form-label">Image:</label>
-            <input type="text" id="img-text" class="form-control" name="imgEvent" value="${event.imgEvent}">
+            <input type="text" id="img-text" class="form-control" name="imgEvent">
           </div>
 
           <!-- Địa điểm -->
           <div class="mb-3">
             <label for="location-text" class="col-form-label">Location:</label>
-            <input type="text" id="location-text" class="form-control" name="location" value="${event.location}">
+            <input type="text" id="location-text" class="form-control" name="location">
           </div>
 
           <!-- Mô tả -->
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Description:</label>
-            <textarea class="form-control" id="message-text" name="description">${event.description}</textarea>
+            <textarea class="form-control" id="message-text" name="description"></textarea>
           </div>
 
           <!-- Trạng thái -->
           <div class="mb-3">
             <label for="status" class="col-form-label">Status:</label>
             <select class="form-select" id="status" name="isStatus">
-              <option value="1" ${event.isStatus ? 'selected' : ''}>Start</option>
-              <option value="0" ${!event.isStatus ? 'selected' : ''}>Not Start</option>
+              <option value="1">Start</option>
+              <option value="0">Not Start</option>
             </select>
           </div>
 
           <!-- Số vé -->
           <div class="mb-3">
             <label for="number-ticket" class="col-form-label">Number of Tickets:</label>
-            <input type="number" id="number-ticket" class="form-control" name="ticketToSell" value="${event.ticketToSell}" required>
+            <input type="number" id="number-ticket" class="form-control" name="ticketToSell" required>
           </div>
         </form>
       </div>

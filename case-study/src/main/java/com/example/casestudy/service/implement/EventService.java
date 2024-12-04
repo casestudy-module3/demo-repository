@@ -21,9 +21,7 @@ public class EventService implements IEventService {
     public List<Event> searchEventByName(String name) {
         return eventRepo.searchEventByName(name);
     }
-
-    @Override
-    public void updateEvent(Event event) {
-        
+    public Event getEventById(Integer id) {
+        return eventRepo.getEventById(id);
     }
 }
