@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="updateEventForm" action="/events?action=edit" method="post">
+                <form id="updateEventForm" action="/events?action=edit" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" id="editEventId">
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Name Events:</label>

@@ -82,7 +82,7 @@ public class EventRepo {
         }
         return filteredEvents;
     }
-    public void updateEvent(Event event) {
+    public void updateEvent(int id, Event event) {
         try {
             PreparedStatement statement = Database.getConnection().prepareStatement("update events_organized set name_event =?, place=?, time_event=?, image=?, scope=?, description_event=? where id=?");
             statement.setString(1, event.getEventName());
