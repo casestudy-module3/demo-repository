@@ -12,4 +12,10 @@ public class CustomerService implements ICustomerService {
     public List<Customer> getAll() {
         return  customerRepo.getCustomers();
     }
+
+    @Override
+    public List<Customer> findByName(String name) {
+        return customerRepo.searchCustomerByName(name);
+
+    }
 }
