@@ -81,9 +81,27 @@ public class EventController extends HttpServlet {
                 description = req.getParameter("description");
                 isStatus = Boolean.parseBoolean(req.getParameter("status"));
                 ticketToSell = Integer.parseInt(req.getParameter("ticketToSell"));
+                Part files = req.getPart("imgEvent"); // Lấy file từ form
+                if (files != null && files.getSize() > 0) {
+                    String fileName = Paths.get(files.getSubmittedFileName()).getFileName().toString();
+                    String uploadDir = req.getServletContext().getRealPath("") + File.separator + "img";
+                    File uploadDirFile = new File(uploadDir);
+                    if (!uploadDirFile.exists()) {
+                        uploadDirFile.mkdir(); // Tạo thư mục nếu chưa tồn tại
+                    }
+
+                    // Đường dẫn đầy đủ để lưu file
+                    String fullFilePath = uploadDir + File.separator + fileName;
+                    File file = new File(fullFilePath);
+                    try (InputStream input = files.getInputStream()) {
+                        Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    }
+                    imgEvent = "img/" + fileName; // Đường dẫn để lưu vào cơ sở dữ liệu
+                }
                 Event changeEvent = new Event(name, date, imgEvent, location, description, isStatus, ticketToSell);
-                eventService.updateEvent(id,changeEvent);
-                resp.sendRedirect("/events");
+                eventService.updateEvent(id, changeEvent);
+                resp.sendRedirect(req.getContextPath() + "/events");
+                break;
 //                default:
 //                eventName = req.getParameter("eventName");
 //                eventStart = LocalDate.parse(req.getParameter("eventStart"));
@@ -96,8 +114,6 @@ public class EventController extends HttpServlet {
 //                eventService.addEvent(newEvent);
 //                resp.sendRedirect(req.getContextPath() + "/events");
 //                break;
-            case "update":
-
             case "add":
                 eventName = req.getParameter("eventName");
                 eventStart = LocalDate.parse(req.getParameter("eventStart"));
