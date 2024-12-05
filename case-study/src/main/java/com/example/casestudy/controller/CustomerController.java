@@ -15,8 +15,23 @@ import java.util.List;
 public class CustomerController extends HttpServlet {
     private static ICustomerService customerService = new CustomerService();
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Customer> customerList = customerService.getAll();
-        request.setAttribute("customers", customerList);
-        request.getRequestDispatcher("WEB-INF/view/customer.jsp").forward(request, response);
+        request.setCharacterEncoding("UTF-8");
+        String action = request.getParameter("action");
+        if(action ==null) action = "";
+        switch (action) {
+            case "search":
+                String name = request.getParameter("name");
+                List<Customer> customerByName = customerService.findByName(name);
+                request.setAttribute("customerList", customerByName);
+                request.getRequestDispatcher("customers.jsp").forward(request, response);
+                break;
+            case "customers":
+                List<Customer> customerList = customerService.getAll();
+                request.setAttribute("customers", customerList);
+                request.getRequestDispatcher("WEB-INF/view/customer.jsp").forward(request, response);
+                break;
+        }
+
     }
+
 }
