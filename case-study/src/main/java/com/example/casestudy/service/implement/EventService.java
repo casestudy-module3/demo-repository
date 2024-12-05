@@ -23,7 +23,8 @@ public class EventService implements IEventService {
     }
 
     @Override
-    public void updateEvent(Event event) {
-         eventRepo.updateEvent(event);
+    public boolean updateEvent(int id, Event event) {
+         eventRepo.updateEvent(id, event);
+         return true;
     }
 }
