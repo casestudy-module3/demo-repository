@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
 
+import com.google.gson.Gson;
+
 @WebServlet(name = "statisticController", urlPatterns = {"/statistics", "/exportStatistics"})
 public class StatisticController extends HttpServlet {
     private StatisticService statisticService = new StatisticService();
@@ -21,6 +23,8 @@ public class StatisticController extends HttpServlet {
         String action = req.getParameter("action");
         if ("export".equals(action)) {
             exportStatistics(resp);
+        } else if ("chartData".equals(action)) {
+            sendChartData(resp);
         } else {
             req.setCharacterEncoding("UTF-8");
             Map<String, Integer> statisticsMap = statisticService.getStatisticsMap();
@@ -40,6 +44,18 @@ public class StatisticController extends HttpServlet {
         for (Map.Entry<String, Integer> entry : statisticsMap.entrySet()) {
             writer.println(entry.getKey() + "," + entry.getValue());
         }
+        writer.flush();
+        writer.close();
+    }
+
+    private void sendChartData(HttpServletResponse resp) throws IOException {
+        Map<String, Integer> statisticsMap = statisticService.getStatisticsMap2();
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        Gson gson = new Gson();
+        String json = gson.toJson(statisticsMap);
+        PrintWriter writer = resp.getWriter();
+        writer.println(json);
         writer.flush();
         writer.close();
     }

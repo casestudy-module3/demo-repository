@@ -12,6 +12,7 @@
 <head>
     <title>JSP - Hello World</title>
     <%@ include file="/WEB-INF/include/header.jsp" %>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -21,7 +22,7 @@
             <%@include file="/WEB-INF/include/search.jsp" %>
             <div class="container">
                 <h2>Statistic</h2>
-                <div class="d-flex justify-content-end align-items-center mb-3 mt-3">
+                <div class="d-flex justify-content-end align-items-center mb-3 ">
                     <a href="<%= request.getContextPath() %>/exportStatistics?action=export"
                        class="btn btn-primary bi bi-file-earmark-arrow-down"></a>
                 </div>
@@ -38,6 +39,12 @@
                     </c:forEach>
                 </div>
             </div>
+            <div class="container">
+                <h3 class="mt-3">Event Statistics Chart</h3>
+                <div style="max-width: 600px; margin: auto;">
+                    <canvas id="statisticChart" style="max-width: 100%; height: 300px;"></canvas>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -51,6 +58,30 @@
     }
 </script>
 <script>
-
+    fetch('<%= request.getContextPath() %>/statistics?action=chartData')
+        .then(response => response.json())
+        .then(data => {
+            const ctx = document.getElementById('statisticChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        label: 'Event Statistics',
+                        data: Object.values(data),
+                        backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
+                        borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
 </script>
 </html>

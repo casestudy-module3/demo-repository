@@ -16,4 +16,7 @@ public class StatisticService implements IStatisticService {
     public Map<String, Integer> getStatisticsMap() {
         return statisticRepo.getStatisticsMap();
     }
+    public Map<String, Integer> getStatisticsMap2() {
+        return statisticRepo.getStatisticsMap2();
+    }
 }

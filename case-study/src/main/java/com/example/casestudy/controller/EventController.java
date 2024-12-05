@@ -81,39 +81,25 @@ public class EventController extends HttpServlet {
                 description = req.getParameter("description");
                 isStatus = Boolean.parseBoolean(req.getParameter("status"));
                 ticketToSell = Integer.parseInt(req.getParameter("ticketToSell"));
-                Part files = req.getPart("imgEvent"); // Lấy file từ form
+                Part files = req.getPart("imgEvent");
                 if (files != null && files.getSize() > 0) {
                     String fileName = Paths.get(files.getSubmittedFileName()).getFileName().toString();
                     String uploadDir = req.getServletContext().getRealPath("") + File.separator + "img";
                     File uploadDirFile = new File(uploadDir);
                     if (!uploadDirFile.exists()) {
-                        uploadDirFile.mkdir(); // Tạo thư mục nếu chưa tồn tại
+                        uploadDirFile.mkdir();
                     }
-
-                    // Đường dẫn đầy đủ để lưu file
                     String fullFilePath = uploadDir + File.separator + fileName;
                     File file = new File(fullFilePath);
                     try (InputStream input = files.getInputStream()) {
                         Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     }
-                    imgEvent = "img/" + fileName; // Đường dẫn để lưu vào cơ sở dữ liệu
+                    imgEvent = "img/" + fileName;
                 }
                 Event changeEvent = new Event(name, date, imgEvent, location, description, isStatus, ticketToSell);
                 eventService.updateEvent(id, changeEvent);
                 resp.sendRedirect(req.getContextPath() + "/events");
                 break;
-//                default:
-//                eventName = req.getParameter("eventName");
-//                eventStart = LocalDate.parse(req.getParameter("eventStart"));
-//                imgEvent = req.getParameter("imgEvent");
-//                location = req.getParameter("location");
-//                description = req.getParameter("description");
-//                isStatus = req.getParameter("isStatus").equals("1");
-//                ticketToSell = Integer.parseInt(req.getParameter("ticketToSell"));
-//                Event newEvent = new Event(eventName, eventStart, imgEvent, location, description, isStatus, ticketToSell);
-//                eventService.addEvent(newEvent);
-//                resp.sendRedirect(req.getContextPath() + "/events");
-//                break;
             case "add":
                 eventName = req.getParameter("eventName");
                 eventStart = LocalDate.parse(req.getParameter("eventStart"));

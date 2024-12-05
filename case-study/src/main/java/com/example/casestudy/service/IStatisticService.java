@@ -6,6 +6,6 @@ public interface IStatisticService<T> {
     T getStatistic();
 
     Map<String, Integer> getStatisticsMap();
-
+    Map<String, Integer> getStatisticsMap2();
 
 }

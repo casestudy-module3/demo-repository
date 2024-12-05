@@ -82,8 +82,4 @@
         document.getElementById("editEventId").value = eventId;
     }
 </script>
-<script>
-
-</script>
-
 </html>
