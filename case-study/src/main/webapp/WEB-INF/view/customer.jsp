@@ -12,14 +12,14 @@
 <html>
 <head>
     <title>Customer</title>
-    <%@ include file="/WEB-INF/include/header.jsp"%>
+    <%@ include file="/WEB-INF/include/header.jsp" %>
 </head>
 <body>
 <div class="container-fluid">
     <div class="row flex-nowrap">
         <%@ include file="/WEB-INF/include/sidebar.jsp" %>
         <div class="col py-3">
-            <%@include file="/WEB-INF/include/search.jsp"%>
+            <%@include file="/WEB-INF/include/search.jsp" %>
             <div class="container">
                 <h2>Customer Registered</h2>
                 <table class="table table-responsive">

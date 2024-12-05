@@ -1,6 +1,7 @@
 package com.example.casestudy.repo;
 
 import com.example.casestudy.model.Event;
+
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -9,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventRepo {
-    private static List<Event> events=new ArrayList<>();
+    private static List<Event> events = new ArrayList<>();
+
     public List<Event> getEvents() {
         events.clear();
         try {
@@ -24,7 +26,7 @@ public class EventRepo {
                 Integer scope = resultSet.getInt("scope");
                 String descriptionEvent = resultSet.getString("description_event");
                 Boolean statusEvent = resultSet.getBoolean("status_event");
-                events.add(new Event(id,nameEvent,timeEvent,image,place,descriptionEvent,statusEvent,scope));
+                events.add(new Event(id, nameEvent, timeEvent, image, place, descriptionEvent, statusEvent, scope));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error fetching events", e);
@@ -49,6 +51,7 @@ public class EventRepo {
             throw new RuntimeException("Error adding event", e);
         }
     }
+
     public void deleteEvent(Integer id) {
         try {
             PreparedStatement statement = Database.getConnection().prepareStatement("DELETE FROM events_organized WHERE id = ?");
@@ -58,6 +61,7 @@ public class EventRepo {
             throw new RuntimeException("Error deleting event", e);
         }
     }
+
     public List<Event> searchEventByName(String name) {
         List<Event> filteredEvents = new ArrayList<>();
         try {
@@ -82,6 +86,7 @@ public class EventRepo {
         }
         return filteredEvents;
     }
+
     public void updateEvent(Event event) {
         try {
             PreparedStatement statement = Database.getConnection().prepareStatement(

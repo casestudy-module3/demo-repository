@@ -11,20 +11,21 @@
             <span class="fs-2 d-none d-sm-inline">Menu</span>
         </a>
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start " id="menu">
-            <li class="nav-item" >
+            <li class="nav-item">
                 <a href="index.jsp" class="nav-link align-middle px-0">
                     <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
                 </a>
             </li>
             <li>
-                <a href="#exampleModal" class="nav-link px-0 align-middle" data-bs-toggle="modal" data-bs-target="#addEventModal" data-bs-whatever="@mdo">
+                <a href="#exampleModal" class="nav-link px-0 align-middle" data-bs-toggle="modal"
+                   data-bs-target="#addEventModal" data-bs-whatever="@mdo">
                     <i class="fs-4 bi-plus-square"></i> <span class="ms-1 d-none d-sm-inline">AddEvent</span>
                 </a>
             </li>
 
             <li>
                 <a href="<%= request.getContextPath() %>/statistics" class="nav-link px-0 align-middle">
-                <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Statistic</span></a>
+                    <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Statistic</span></a>
             </li>
             <li>
                 <a href="/customers?action=customers" class="nav-link px-0 align-middle">
@@ -33,7 +34,8 @@
         </ul>
         <hr>
         <div class="dropdown pb-4">
-            <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle"
+               id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
                 <span class="d-none d-sm-inline mx-1">loser</span>
             </a>

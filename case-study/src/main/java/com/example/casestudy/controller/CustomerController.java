@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-@WebServlet(name="customerCotroller", value="/customers")
+
+@WebServlet(name = "customerCotroller", value = "/customers")
 public class CustomerController extends HttpServlet {
     private static ICustomerService customerService = new CustomerService();
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Customer> customerList = customerService.findAll();
         request.setAttribute("customers", customerList);

@@ -82,3 +82,4 @@ SET image = 'img/insta.png';
 
 SET SQL_SAFE_UPDATES = 1;
 
+select * from events_organized;
