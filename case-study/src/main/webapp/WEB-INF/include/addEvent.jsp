@@ -16,19 +16,19 @@
                 <form id="addEventForm" action="/events?action=add" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Name Events:</label>
-                        <input type="text" class="form-control" id="recipient-name" name="eventName">
+                        <input type="text" class="form-control" id="recipient-name" name="eventName" required>
                     </div>
                     <div class="mb-3">
                         <label for="date-time" class="col-form-label">Date-Time:</label>
-                        <input type="date" id="date-time" class="form-control" name="eventStart">
+                        <input type="date" id="date-time" class="form-control" name="eventStart" required>
                     </div>
                     <div class="mb-3">
                         <label for="img-text" class="col-form-label">Image:</label>
-                        <input type="file" id="img-text" class="form-control" name="imgEvent">
+                        <input type="file" id="img-text" class="form-control" name="imgEvent" required>
                     </div>
                     <div class="mb-3">
                         <label for="location-text" class="col-form-label">Location:</label>
-                        <input type="text" id="location-text" class="form-control" name="location">
+                        <input type="text" id="location-text" class="form-control" name="location" required>
                     </div>
                     <div class="mb-3">
                         <label for="message-text" class="col-form-label">Description:</label>
@@ -36,7 +36,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="status" class="col-form-label">Status:</label>
-                        <select class="form-select" id="status" name="isStatus">
+                        <select class="form-select" id="status" name="isStatus" required>
                             <option value="1">Start</option>
                             <option value="0">Not Start</option>
                         </select>

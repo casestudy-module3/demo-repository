@@ -9,6 +9,6 @@ import java.util.List;
 public class AdminService implements IAdminService {
     private AdminRepo adminRepo= new AdminRepo();
     public List<Admin> getAdmin(){
-        return adminRepo.getAdmin();
+        return adminRepo.getManagementEventData();
     }
 }
