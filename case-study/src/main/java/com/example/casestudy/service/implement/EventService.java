@@ -4,32 +4,27 @@ import com.example.casestudy.model.Event;
 import com.example.casestudy.repo.EventRepo;
 import com.example.casestudy.service.IEventService;
 
-import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
 
 public class EventService implements IEventService {
     private static final EventRepo eventRepo = new EventRepo();
-
     public List<Event> getEvents() {
         return eventRepo.getEvents();
     }
-
     public void addEvent(Event event) {
         eventRepo.addEvent(event);
     }
-
     @Override
     public void deleteEvent(Integer id) {
         eventRepo.deleteEvent(id);
     }
-
     public List<Event> searchEventByName(String name) {
         return eventRepo.searchEventByName(name);
     }
 
     @Override
-    public void updateEvent(Event event) {
-        eventRepo.updateEvent(event);
+    public boolean updateEvent(int id, Event event) {
+         eventRepo.updateEvent(id, event);
+         return true;
     }
 }

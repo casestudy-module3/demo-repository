@@ -17,7 +17,7 @@ public class CustomerController extends HttpServlet {
     private static ICustomerService customerService = new CustomerService();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Customer> customerList = customerService.findAll();
+        List<Customer> customerList = customerService.getAll();
         request.setAttribute("customers", customerList);
         request.getRequestDispatcher("WEB-INF/view/customer.jsp").forward(request, response);
     }

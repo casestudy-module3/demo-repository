@@ -2,6 +2,9 @@ package com.example.casestudy.repo;
 
 import com.example.casestudy.model.Customer;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,16 +12,25 @@ import java.util.List;
 
 public class CustomerRepo {
     private static List<Customer> customers = new ArrayList<Customer>();
-
-    static {
-        customers.add(new Customer(1, "An", "an@gmail.com", "03312223", "DEL", "Vip", LocalDate.now(), 2));
-        customers.add(new Customer(2, "AnC", "aEn@gmail.com", "033233123", "ADD", "Normal", LocalDate.now(), 2));
-        customers.add(new Customer(3, "AnƯ", "Êan@gmail.com", "03323123", "ADD", "Vip", LocalDate.now(), 1));
-        customers.add(new Customer(4, "AnE", "anƯE@gmail.com", "03322123", "DEL", "Normal", LocalDate.now(), 3));
-        customers.add(new Customer(5, "AnE", "aƯEWn@gmail.com", "032323123", "ADD", "Vip", LocalDate.now(), 2));
-    }
-
-    public List<Customer> findAll() {
+    public List<Customer> getCustomers() {
+        customers.clear();
+        try {
+            PreparedStatement statement = Database.getConnection().prepareStatement("select c.id, c.name_customer, c.email, c.phone_number, c.status_customer, t.time_book, pt.id_ticket_type, count(t.id) as tickets_number from customers c join tickets t on c.id = t.id_customer join price_tickets pt on t.id_price = pt.id_price_ticket join events_organized eo on t.id_event = eo.id where t.id_event = id_event group by c.id, c.name_customer, c.email, c.phone_number, c.status_customer, t.time_book, pt.id_ticket_type;");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                Integer id = resultSet.getInt("id");
+                String name = resultSet.getString("name_customer");
+                String address = resultSet.getString("email");
+                String phone = resultSet.getString("phone_number");
+                Boolean status = resultSet.getBoolean("status_customer");
+                LocalDate timeBook = resultSet.getDate("time_book").toLocalDate();
+                String ticketType = resultSet.getString("id_ticket_type");
+                Integer ticketsNumber = resultSet.getInt("tickets_number");
+                customers.add(new Customer(id, name, address, phone, status, timeBook, ticketType, ticketsNumber));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return customers;
     }
 }
