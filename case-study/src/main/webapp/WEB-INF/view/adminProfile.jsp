@@ -122,4 +122,32 @@
     }
 </script>
 </body>
+<script>
+    function enableEditing() {
+        // Lấy tất cả các input và select của form
+        let inputs = document.querySelectorAll("#fullName, #phone, #dob, #address, #position");
+        let select = document.getElementById("gender");
+
+        // Bật khả năng chỉnh sửa cho tất cả các trường input và select
+        inputs.forEach(function(input) {
+            input.removeAttribute("readonly");
+        });
+
+        if (select) {
+            select.removeAttribute("disabled");
+        }
+
+        // Đổi trạng thái nút Save thành có thể bấm
+        let saveButton = document.getElementById("saveButton");
+        if (saveButton) {
+            saveButton.disabled = false;
+        }
+
+        // Đổi trạng thái của nút Edit thành không thể bấm
+        let editButton = document.getElementById("editButton");
+        if (editButton) {
+            editButton.disabled = true;
+        }
+    }
+</script>
 </html>

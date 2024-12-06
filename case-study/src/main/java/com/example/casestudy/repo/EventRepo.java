@@ -82,7 +82,7 @@ public class EventRepo {
             PreparedStatement statement = Database.getConnection().prepareStatement(
                     "SELECT * FROM events_organized WHERE name_event LIKE ?"
             );
-            statement.setString(1, "%" + name + "%");
+            statement.setString(1, name + "%");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Integer id = resultSet.getInt("id");
