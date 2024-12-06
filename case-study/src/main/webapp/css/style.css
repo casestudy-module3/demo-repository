@@ -61,7 +61,7 @@ h2.active {
     border-bottom: 2px solid darkseagreen;
 }
 input[type=button], input[type=submit], input[type=reset] {
-    background-color: lightgreen;
+    background-color: #a6d5a6;
     border: none;
     color: white;
     padding: 15px 80px;

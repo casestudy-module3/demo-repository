@@ -31,12 +31,12 @@ public class AdminController extends HttpServlet {
             RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/adminProfile.jsp");
             dispatcher.forward(req, resp);
     }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
+        System.out.println(action);
         if("login".equals(action)){
             String userName = req.getParameter("user_name");
             String password = req.getParameter("password");
@@ -53,6 +53,15 @@ public class AdminController extends HttpServlet {
             }
         } else if ("sign_out".equals(action)) {
             req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, resp);
+        } else if ("save".equals(action)) {
+            String name = req.getParameter("fullName");
+            LocalDate dob = LocalDate.parse(req.getParameter("dob"));
+            Boolean gender = Boolean.valueOf(req.getParameter("gender"));
+            String address = req.getParameter("address");
+            String phone = req.getParameter("phone");
+            Admin newInformationAdmin = new Admin(name, dob, gender, address, phone);
+            iAdmin.updateInformation(newInformationAdmin);
+            resp.sendRedirect(req.getContextPath() + "/adminProfile");
         }
     }
 }

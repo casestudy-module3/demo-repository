@@ -81,7 +81,7 @@ public class EventController extends HttpServlet {
                 description = req.getParameter("description");
                 isStatus = Boolean.parseBoolean(req.getParameter("status"));
                 ticketToSell = Integer.parseInt(req.getParameter("ticketToSell"));
-                Part files = req.getPart("imgEvent"); // Lấy file từ form
+                Part files = req.getPart("imgEvent");
                 if (files != null && files.getSize() > 0) {
                     String fileName = Paths.get(files.getSubmittedFileName()).getFileName().toString();
                     String uploadDir = req.getServletContext().getRealPath("") + File.separator + "img";
