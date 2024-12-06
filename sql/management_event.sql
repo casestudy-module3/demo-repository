@@ -5,7 +5,7 @@ id int primary key auto_increment,
 name_event varchar(50),
 place varchar(30),
 time_event datetime not null,
-image varchar(50),
+image varchar(255),
 scope int not null,
 description_event varchar(200) not null,
 status_event boolean not null
@@ -44,7 +44,22 @@ email varchar(50) not null,
 phone_number int not null,
 status_customer boolean not null
 );
+create table admins (
+id int primary key auto_increment,
+user_name varchar(30) not null unique,
+password_ad varchar(50) not null,
+full_name varchar(50) not null, 
+dob date not null,
+gender boolean not null,
+email varchar(30) not null,
+address varchar(50),
+position varchar(20) not null,
+phoneNumber varchar(10) not null
+);
 
+INSERT INTO admins (user_name, password_ad, full_name, dob, gender, email, address, position, phoneNumber)
+VALUES 
+('admin001','password123','John Doe','1990-05-20', TRUE,'admin@example.com','123 Main St','Manager',  '0123456789');
 INSERT INTO events_organized (name_event, place, time_event, image, scope, description_event, status_event) 
 VALUES 
 ('Music Festival', 'Central Park', '2024-12-10 18:00:00', 'music_fest.jpg', 500, 'A grand music festival featuring famous artists.', true),
@@ -79,6 +94,6 @@ VALUES
 SET SQL_SAFE_UPDATES = 0;
 UPDATE events_organized
 SET image = 'img/insta.png';
-
 SET SQL_SAFE_UPDATES = 1;
+
 

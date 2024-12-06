@@ -1,6 +1,7 @@
 package com.example.casestudy.repo;
 
 import com.example.casestudy.model.Statistic;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -42,7 +43,14 @@ public class StatisticRepo {
         Map<String, Integer> statisticsMap = new LinkedHashMap<>();
         Statistic statistic = getStatistics();
         statisticsMap.put("Total Events", statistic.getTotalEvents());
-        statisticsMap.put("Total Tickets Sold", statistic.getTotalTicketsSold());
+        statisticsMap.put("Total Tickets", statistic.getTotalTicketsSold());
+        statisticsMap.put("Total Active Events", statistic.getTotalActiveEvents());
+        return statisticsMap;
+    }
+    public Map<String, Integer> getStatisticsMap2() {
+        Map<String, Integer> statisticsMap = new LinkedHashMap<>();
+        Statistic statistic = getStatistics();
+        statisticsMap.put("Total Events", statistic.getTotalEvents());
         statisticsMap.put("Total Active Events", statistic.getTotalActiveEvents());
         return statisticsMap;
     }
