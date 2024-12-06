@@ -6,6 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%
-    response.sendRedirect(request.getContextPath() + "/events");
+    response.sendRedirect(request.getContextPath() + "/login");
 %>
 

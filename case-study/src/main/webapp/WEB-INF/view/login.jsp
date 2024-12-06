@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="<c:url value='/css/style.css' />">
 </head>
 <body>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -15,9 +15,10 @@
         <div class="fadeIn first">
             <img src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small_2x/user-profile-icon-free-vector.jpg" id="icon" alt="User Icon" />
         </div>
-        <form method="get" action="logins?action=login">
+        <form method="post" action="logins?action=login">
             <input type="text" id="login" class="fadeIn second" name="user_name" placeholder="User name">
-            <input type="text" id="password" class="fadeIn third" name="password" placeholder="Password">
+            <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
+            <input type="hidden"  value="login" name ="action">
             <input type="submit" class="fadeIn fourth" value="Log In">
             <div class="alert" style="color: red; font-weight: bold;">
                 <c:if test="${not empty message}">

@@ -37,8 +37,18 @@ public class CustomerRepo {
     public List<Customer> searchCustomerByName( String name) {
         customers.clear();
         try{
-            PreparedStatement statement = Database.getConnection().prepareStatement("select c.id, c.name_customer, c.email, c.phone_number, c.status_customer, t.time_book, pt.id_ticket_type, count(t.id) as tickets_number eo.name_event from customers c join tickets t on c.id = t.id_customer join price_tickets pt on t.id_price = pt.id_price_ticket join events_organized eo on t.id_event = eo.id where c.name_customer like ? group by c.id, c.name_customer, c.email, c.phone_number, c.status_customer, t.time_book, pt.id_ticket_type  eo.name_event;");
-            statement.setString(2,"%"+name+"%");
+            String sql = "select \n" +
+                    "c.id, c.name_customer, c.email, c.phone_number, c.status_customer, \n" +
+                    "t.time_book, pt.id_ticket_type, count(t.id) as tickets_number, eo.name_event \n" +
+                    "from customers c \n" +
+                    "join tickets t on c.id = t.id_customer \n" +
+                    "join price_tickets pt on t.id_price = pt.id_price_ticket \n" +
+                    "join events_organized eo on t.id_event = eo.id \n" +
+                    " where c.name_customer like ? \n" +
+                    " group by c.id, c.name_customer, c.email, c.phone_number, c.status_customer, \n" +
+                    " t.time_book, pt.id_ticket_type,  eo.name_event;";
+            PreparedStatement statement = Database.getConnection().prepareStatement(sql);
+            statement.setString(1, "%"+name +"%" );
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
                 Integer id = resultSet.getInt("id");

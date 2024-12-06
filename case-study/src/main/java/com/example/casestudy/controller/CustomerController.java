@@ -18,12 +18,13 @@ public class CustomerController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
         if(action ==null) action = "";
+
         switch (action) {
             case "search":
                 String name = request.getParameter("name");
                 List<Customer> customerByName = customerService.findByName(name);
-                request.setAttribute("customerList", customerByName);
-                request.getRequestDispatcher("customers.jsp").forward(request, response);
+                request.setAttribute("customers", customerByName);
+                request.getRequestDispatcher("WEB-INF/view/customer.jsp").forward(request, response);
                 break;
             case "customers":
                 List<Customer> customerList = customerService.getAll();

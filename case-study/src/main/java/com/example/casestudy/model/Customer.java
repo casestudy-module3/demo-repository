@@ -56,25 +56,28 @@ public class Customer {
     public void setStatus(Boolean status) {
         this.status = status;
     }
-    public String getTypeTicket() {
-        return ticketType;
-    }
-    public void setTypeTicket(String typeTicket) {
-        this.ticketType = ticketType;
-    }
     public LocalDate getTimeBook() {
         return timeBook;
     }
     public void setTimeBook(LocalDate timeBook) {
         this.timeBook = timeBook;
     }
-    public Integer getNumberTickets() {
+    public Integer getTicketsNumber() {
         return ticketsNumber;
     }
-    public void setNumberTickets(Integer numberTickets) {
+    public void setTicketsNumber(Integer numberTickets) {
         this.ticketsNumber = numberTickets;
     }
     public String getEventName(){
         return eventName;
     }
+
+    public void setTicketType(String ticketType) {
+        this.ticketType = ticketType;
+    }
+
+    public String getTicketType() {
+        return ticketType;
+    }
+
 }
