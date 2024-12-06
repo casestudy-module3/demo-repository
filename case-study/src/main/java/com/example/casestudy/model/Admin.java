@@ -28,6 +28,13 @@ public class Admin {
         this.position = position;
         this.phone = phone;
     }
+    public Admin(String fullName, LocalDate dob, Boolean gender, String address, String phone){
+        this.fullName = fullName;
+        this.dob = dob;
+        this.gender = gender;
+        this.address = address;
+        this.phone = phone;
+    }
     public Integer getIdAdmin() {
         return idAdmin;
     }

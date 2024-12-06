@@ -17,6 +17,12 @@ public class AdminService implements IAdmin {
         return false;
 }
 
+    @Override
+    public boolean updateInformation(Admin admin) {
+        adminRepo.editAdmin(admin);
+        return true;
+    }
+    @Override
     public List<Admin> getAdmin(){
         return adminRepo.getManagementEventData();
     }

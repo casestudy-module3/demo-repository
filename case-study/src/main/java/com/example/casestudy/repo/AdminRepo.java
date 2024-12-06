@@ -51,5 +51,18 @@ public class AdminRepo {
         }
         return admins;
     }
+    public void editAdmin(Admin admin){
+        try{
+            PreparedStatement statement = Database.getConnection().prepareStatement("update admins set full_name=?, dob=?, gender=?, address=?, phoneNumber=?");
+            statement.setString(1, admin.getFullName());
+            statement.setString(2, String.valueOf(admin.getDob()));
+            statement.setInt(3, admin.getGender() ? 1 : 0);
+            statement.setString(4, admin.getAddress());
+            statement.setString(5, admin.getPhone());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error");
+        }
+    }
 
 }
