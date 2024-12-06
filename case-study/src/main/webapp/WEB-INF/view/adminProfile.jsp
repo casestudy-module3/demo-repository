@@ -70,8 +70,8 @@
                                 <div class="form-group col-md-6">
                                     <label for="gender">Gender:</label>
                                     <select class="form-control" id="gender" name="gender" disabled>
-                                        <option value="Male" ${admin.gender == 'Male' ? 'selected' : ''}>Male</option>
-                                        <option value="Female" ${admin.gender == 'Female' ? 'selected' : ''}>Female</option>
+                                        <option value="0" ${admin.gender == 'Male' ? 'selected' : ''}>Male</option>
+                                        <option value="1" ${admin.gender == 'Female' ? 'selected' : ''}>Female</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
