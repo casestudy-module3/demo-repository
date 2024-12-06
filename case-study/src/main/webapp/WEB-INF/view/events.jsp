@@ -40,12 +40,11 @@
                             <th scope="row">${event.idEvents}</th>
                             <td>${event.eventName}</td>
                             <td>${event.eventStart}</td>
-                            <td><img src="${event.imgEvent}" alt="Event Image" class="w-70 text-center" width="50"></td>
+                            <td><img src="${event.imgEvent}" alt="Event Image" class="w-70 text-center" width="50" onclick="previewImage('${event.imgEvent}')" style="cursor: pointer;"></td>
                             <td>${event.location}</td>
                             <td>${event.isStatus ? 'Active' : 'Inactive'}</td>
                             <td>${event.ticketToSell}</td>
                             <td>
-                                <!-- Button for Update -->
                                 <button type="button"
                                         class="btn btn-warning bi bi-pencil"
                                         data-bs-toggle="modal"
@@ -53,15 +52,12 @@
                                         style="width:80px; color:white;"
                                         onclick="setIdUpdate(${event.idEvents})">
                                 </button>
-
-                                <!-- Button for View -->
                                 <button type="button"
                                         class="btn btn-secondary bi bi-eye-fill"
-                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop";
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#viewEventModal${event.idEvents}"
                                         style="width:80px;">
                                 </button>
-
-                                <!-- Button for Delete -->
                                 <button type="button"
                                         class="btn btn-danger bi bi-trash3"
                                         data-bs-toggle="modal"
@@ -71,6 +67,34 @@
                                 </button>
                             </td>
                         </tr>
+                        <div class="modal fade" id="viewEventModal${event.idEvents}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewEventModalLabel${event.idEvents}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="viewEventModalLabel${event.idEvents}">
+                                            <c:out value="${event.eventName}" />
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><c:out value="${event.description}" /></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-labelledby="imagePreviewModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="imagePreviewModalLabel">Image Preview</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <img id="previewImage" src="" alt="Event Image Preview" class="img-fluid" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </c:forEach>
                     </tbody>
                 </table>
@@ -92,6 +116,15 @@
 
     function setIdUpdate(eventId) {
         document.getElementById("editEventId").value = eventId;
+    }
+</script>
+<script>
+    function previewImage(imageSrc) {
+        // Gán đường dẫn hình ảnh vào modal
+        document.getElementById("previewImage").src = imageSrc;
+        // Mở modal để xem trước hình ảnh
+        var imagePreviewModal = new bootstrap.Modal(document.getElementById("imagePreviewModal"));
+        imagePreviewModal.show();
     }
 </script>
 
