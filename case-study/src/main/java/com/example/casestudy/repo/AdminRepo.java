@@ -10,7 +10,7 @@ public class AdminRepo {
     private static AdminRepo adminRepo = new AdminRepo();
     public Admin getAdmin(){
         try{
-            PreparedStatement statement = Database.getConnection().prepareStatement("select * from admins where user_name=? and password_ad=?");
+            PreparedStatement statement = Database.getConnection().prepareStatement("select user_name, password_ad from admins");
             ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()){
                 String userName = resultSet.getString("user_name");

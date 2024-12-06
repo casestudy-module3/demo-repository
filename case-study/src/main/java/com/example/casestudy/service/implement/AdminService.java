@@ -8,9 +8,10 @@ public class AdminService implements IAdmin {
     private static AdminRepo adminRepo = new AdminRepo();
     @Override
     public boolean checkInformation(Admin admin) {
-        if (adminRepo.getAdmin().equals(admin)) {
+        Admin admins = adminRepo.getAdmin();
+        if(admins.getUserName().equals(admin.getUserName()) && admins.getPassword().equals(admin.getPassword())){
             return true;
         }
         return false;
-    }
+}
 }
