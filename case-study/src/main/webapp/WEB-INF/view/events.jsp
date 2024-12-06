@@ -25,14 +25,13 @@
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Name Event</th>
+                        <th scope="col">Name</th>
                         <th scope="col">Time</th>
-                        <th scope="col">Image Event</th>
+                        <th scope="col">Image</th>
                         <th scope="col" class="d-none d-md-table-cell">Location</th>
-                        <th scope="col" class="d-none d-md-table-cell">Description</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Ticket To Buy</th>
-                        <th scope="col" colspan="2">Action</th>
+                        <th scope="col">Number Ticket</th>
+                        <th scope="col" colspan="3">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -43,21 +42,33 @@
                             <td>${event.eventStart}</td>
                             <td><img src="${event.imgEvent}" alt="Event Image" class="w-70 text-center" width="50"></td>
                             <td>${event.location}</td>
-                            <td>${event.description}</td>
                             <td>${event.isStatus ? 'Active' : 'Inactive'}</td>
                             <td>${event.ticketToSell}</td>
                             <td>
-                                <button type="button" class="btn btn-warning bi bi-pen"
+                                <!-- Button for Update -->
+                                <button type="button"
+                                        class="btn btn-warning bi bi-pencil"
                                         data-bs-toggle="modal"
                                         data-bs-target="#updateEventModal"
+                                        style="width:80px; color:white;"
                                         onclick="setIdUpdate(${event.idEvents})">
                                 </button>
-                            </td>
 
-                            <td>
-                                <button type="button" class="btn btn-danger bi bi-trash3" data-bs-toggle="modal"
+                                <!-- Button for View -->
+                                <button type="button"
+                                        class="btn btn-secondary bi bi-eye-fill"
+                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop";
+                                        style="width:80px;">
+                                </button>
+
+                                <!-- Button for Delete -->
+                                <button type="button"
+                                        class="btn btn-danger bi bi-trash3"
+                                        data-bs-toggle="modal"
                                         data-bs-target="#deleteEventModal"
-                                        onclick="setEventId(${event.idEvents})"></button>
+                                        style="width:80px;"
+                                        onclick="setEventId(${event.idEvents})">
+                                </button>
                             </td>
                         </tr>
                     </c:forEach>
@@ -78,6 +89,7 @@
     function setEventId(eventId) {
         document.getElementById("deleteEventId").value = eventId;
     }
+
     function setIdUpdate(eventId) {
         document.getElementById("editEventId").value = eventId;
     }

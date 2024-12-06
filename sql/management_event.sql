@@ -5,7 +5,7 @@ id int primary key auto_increment,
 name_event varchar(50),
 place varchar(30),
 time_event datetime not null,
-image varchar(50),
+image varchar(255),
 scope int not null,
 description_event varchar(200) not null,
 status_event boolean not null
@@ -41,7 +41,7 @@ create table customers(
 id int primary key auto_increment,
 name_customer varchar(50) not null,
 email varchar(50) not null,
-phone_number varchar(10) not null,
+phone_number int not null,
 status_customer boolean not null
 );
 create table admins (
@@ -56,11 +56,10 @@ address varchar(50),
 position varchar(20) not null,
 phoneNumber varchar(10) not null
 );
+
 INSERT INTO admins (user_name, password_ad, full_name, dob, gender, email, address, position, phoneNumber)
 VALUES 
 ('admin001','password123','John Doe','1990-05-20', TRUE,'admin@example.com','123 Main St','Manager',  '0123456789');
-drop database management_event;
-drop table admins;
 INSERT INTO events_organized (name_event, place, time_event, image, scope, description_event, status_event) 
 VALUES 
 ('Music Festival', 'Central Park', '2024-12-10 18:00:00', 'music_fest.jpg', 500, 'A grand music festival featuring famous artists.', true),
@@ -81,28 +80,39 @@ VALUES
 ('John Doe', 'johndoe@example.com', 123456789, true),
 ('Jane Smith', 'janesmith@example.com', 987654321, false),
 ('Alice Brown', 'alicebrown@example.com', 456123789, true);
-INSERT INTO customers (id, name_customer, email, phone_number, status_customer) 
-VALUES 
-(4, 'David Smith', 'david.smith@example.com', 1237890, true),
-(5, 'Emily Johnson', 'emily.johnson@example.com', 98710, true),
-(6, 'Frank White', 'frank.white@example.com', 4567123, false);
 INSERT INTO tickets (id_price, time_book, id_event, id_customer) 
 VALUES 
 (1, '2024-12-01 10:00:00', 1, 1), 
 (2, '2024-12-02 11:00:00', 2, 2), 
 (3, '2024-12-03 09:30:00', 3, 3);
-
-INSERT INTO tickets (id_price, time_book, id_event, id_customer) 
-VALUES 
-(1, '2024-12-01 10:00:00', 1, 1), 
-(2, '2024-12-01 11:00:00', 1, 1),  
-(3, '2024-12-02 11:00:00', 2, 2), 
-(2, '2024-12-02 12:00:00', 2, 2),
-(1, '2024-12-03 09:30:00', 3, 3), 
-(3, '2024-12-03 10:00:00', 3, 3);
 INSERT INTO event_tickets_sale (id_event, id_ticket) 
 VALUES 
 (1, 1), 
 (2, 2), 
 (3, 3);
+
+SET SQL_SAFE_UPDATES = 0;
+UPDATE events_organized
+SET image = 'img/event_img.png';
+SET SQL_SAFE_UPDATES = 1;
+
+select * from events_organized;
+INSERT INTO customers (name_customer, email, phone_number, status_customer)
+VALUES
+('John Doe', 'johndoe@example.com', 123456789, true),
+('Jane Smith', 'janesmith@example.com', 987654321, false),
+('Alice Brown', 'alicebrown@example.com', 456123789, true);
+INSERT INTO customers (id, name_customer, email, phone_number, status_customer)
+VALUES
+( 'David Smith', 'david.smith@example.com', 1237890, true),
+( 'Emily Johnson', 'emily.johnson@example.com', 98710, true),
+( 'Frank White', 'frank.white@example.com', 4567123, false);
+
+
+
+
+
+
+
+
 

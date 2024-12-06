@@ -107,18 +107,15 @@
         let select = document.getElementById("gender");
         inputs.forEach(function(input) {
         input.removeAttribute("readonly");
-    });
-        if (select) {
-        select.removeAttribute("disabled");
-    }
+        });
         let saveButton = document.getElementById("saveButton");
         if (saveButton) {
         saveButton.disabled = false;
-    }
+        }
         let editButton = document.getElementById("editButton");
         if (editButton) {
         editButton.disabled = true;
-    }
+        }
     }
 </script>
 </body>
