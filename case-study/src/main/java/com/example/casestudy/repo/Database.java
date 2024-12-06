@@ -9,6 +9,7 @@ public class Database {
     private static String jdbcUsername = "root";
     private static String jdbcPassword = "Huongh2001@qt";
     private static Connection connection = null;
+
     static {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -19,8 +20,10 @@ public class Database {
             e.printStackTrace();
         }
     }
+
     private Database() {
     }
+
     public static Connection getConnection() {
         return connection;
     }

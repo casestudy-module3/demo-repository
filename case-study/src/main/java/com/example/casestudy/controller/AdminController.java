@@ -7,19 +7,31 @@ import com.example.casestudy.service.IEventService;
 import com.example.casestudy.service.implement.AdminService;
 import com.example.casestudy.service.implement.EventService;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-@WebServlet(name = "adminController", urlPatterns = "/logins")
+@WebServlet(name = "adminController", urlPatterns = {"/logins", "/adminProfile"})
+//@WebServlet(name = "adminController", urlPatterns = "/logins")
 public class AdminController extends HttpServlet {
     private static IAdmin iAdmin = new AdminService();
     private static IEventService iEventService = new EventService();
+    private AdminService adminService = new AdminService();
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            List<Admin> admins = adminService.getAdmin();
+            req.setAttribute("admin", admins);
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/adminProfile.jsp");
+            dispatcher.forward(req, resp);
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
