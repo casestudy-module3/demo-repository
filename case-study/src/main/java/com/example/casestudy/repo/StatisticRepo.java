@@ -1,7 +1,6 @@
 package com.example.casestudy.repo;
 
 import com.example.casestudy.model.Statistic;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -10,8 +10,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdminRepo {
-    private static List<Admin> admins = new ArrayList<>();
-
+    private static AdminRepo adminRepo = new AdminRepo();
+    private static List<Admin> admins=new ArrayList<>();
+    public Admin getAdmin(){
+        try{
+            PreparedStatement statement = Database.getConnection().prepareStatement("select user_name, password_ad from admins");
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                String userName = resultSet.getString("user_name");
+                String password = resultSet.getString("password_ad");
+                return new Admin(userName,password);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error");
+        }
+        return adminRepo.getAdmin();
+    }
     public List<Admin> getManagementEventData() {
         admins.clear();
         String query = "SELECT me.id, me.full_name, me.dob, me.gender, me.email, me.address, me.position, me.phoneNumber " +

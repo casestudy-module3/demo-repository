@@ -12,14 +12,14 @@
 <html>
 <head>
     <title>Customer</title>
-    <%@ include file="/WEB-INF/include/header.jsp" %>
+    <%@ include file="/WEB-INF/include/header.jsp"%>
 </head>
 <body>
 <div class="container-fluid">
     <div class="row flex-nowrap">
         <%@ include file="/WEB-INF/include/sidebar.jsp" %>
         <div class="col py-3">
-            <%@include file="/WEB-INF/include/search.jsp" %>
+            <%@include file="/WEB-INF/include/search_customer.jsp"%>
             <div class="container">
                 <h2>Customer Registered</h2>
                 <table class="table table-responsive">
@@ -30,9 +30,10 @@
                         <th scope="col">Email</th>
                         <th scope="col">Phone</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Type Ticket</th>
                         <th scope="col">Time_Book</th>
+                        <th scope="col">Type Ticket</th>
                         <th scope="col">Number of Tickets</th>
+                        <th scope="col">Event Name</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -43,9 +44,10 @@
                             <td>${customer.email}</td>
                             <td>${customer.phone}</td>
                             <td>${customer.status ? 'Paid' : 'Not Yet'}</td>
-                            <td>${customer.typeTicket}</td>
-                            <td>${customer.date}</td>
-                            <td>${customer.numberTickets}</td>
+                            <td>${customer.timeBook}</td>
+                            <td>${customer.ticketType}</td>
+                            <td>${customer.ticketsNumber}</td>
+                            <td>${customer.eventName}</td>
                         </tr>
                     </c:forEach>
                     </tbody>

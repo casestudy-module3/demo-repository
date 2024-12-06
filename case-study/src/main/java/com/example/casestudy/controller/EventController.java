@@ -57,13 +57,13 @@ public class EventController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
-        int id;
+        int id ;
         String eventName;
         LocalDate eventStart;
-        String imgEvent = null;
-        String location;
+        String imgEvent=null;
+        String location ;
         String description;
-        Boolean isStatus;
+        Boolean isStatus ;
         Integer ticketToSell;
         if (action == null) action = "";
         switch (action) {
@@ -81,7 +81,7 @@ public class EventController extends HttpServlet {
                 description = req.getParameter("description");
                 isStatus = Boolean.parseBoolean(req.getParameter("status"));
                 ticketToSell = Integer.parseInt(req.getParameter("ticketToSell"));
-                Part files = req.getPart("imgEvent");
+                Part files = req.getPart("imgEvent"); // Lấy file từ form
                 if (files != null && files.getSize() > 0) {
                     String fileName = Paths.get(files.getSubmittedFileName()).getFileName().toString();
                     String uploadDir = req.getServletContext().getRealPath("") + File.separator + "img";

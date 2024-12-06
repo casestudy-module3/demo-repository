@@ -50,13 +50,31 @@ public class EventRepo {
         }
     }
     public void deleteEvent(Integer id) {
+        String query="DELETE FROM event_tickets_sale WHERE id_event = ?";
         try {
-            PreparedStatement statement = Database.getConnection().prepareStatement("DELETE FROM events_organized WHERE id = ?");
+            PreparedStatement statement = Database.getConnection().prepareStatement(query);
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Error deleting event", e);
         }
+        String query3="DELETE FROM tickets WHERE id_event = ?";
+        try {
+            PreparedStatement statement = Database.getConnection().prepareStatement(query3);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting event", e);
+        }
+        String query2="DELETE FROM events_organized WHERE id = ?";
+        try {
+            PreparedStatement statement = Database.getConnection().prepareStatement(query2);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting event", e);
+        }
+
     }
     public List<Event> searchEventByName(String name) {
         List<Event> filteredEvents = new ArrayList<>();

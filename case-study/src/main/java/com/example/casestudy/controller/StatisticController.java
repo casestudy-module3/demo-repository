@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 @WebServlet(name = "statisticController", urlPatterns = {"/statistics", "/exportStatistics"})
 public class StatisticController extends HttpServlet {
     private StatisticService statisticService = new StatisticService();
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");

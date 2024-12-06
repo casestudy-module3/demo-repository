@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ICustomerService {
     List<Customer> getAll();
+    List<Customer>findByName(String name);
 }
