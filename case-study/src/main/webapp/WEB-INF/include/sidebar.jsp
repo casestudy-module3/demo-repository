@@ -44,7 +44,7 @@
                 <li>
                     <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="http://localhost:8080/" action="sign_out">Sign out</a></li>
+                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#confirmSignOutModal">Sign out</a></li>
             </ul>
         </div>
     </div>

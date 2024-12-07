@@ -11,21 +11,23 @@ import java.util.List;
 
 public class AdminRepo {
     private static AdminRepo adminRepo = new AdminRepo();
-    private static List<Admin> admins=new ArrayList<>();
-    public Admin getAdmin(){
-        try{
+    private static List<Admin> admins = new ArrayList<>();
+
+    public Admin getAdmin() {
+        try {
             PreparedStatement statement = Database.getConnection().prepareStatement("select user_name, password_ad from admins");
             ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 String userName = resultSet.getString("user_name");
                 String password = resultSet.getString("password_ad");
-                return new Admin(userName,password);
+                return new Admin(userName, password);
             }
         } catch (SQLException e) {
             System.out.println("Error");
         }
         return adminRepo.getAdmin();
     }
+
     public List<Admin> getManagementEventData() {
         admins.clear();
         String query = "SELECT me.id, me.full_name, me.dob, me.gender, me.email, me.address, me.position, me.phoneNumber " +
@@ -51,8 +53,9 @@ public class AdminRepo {
         }
         return admins;
     }
-    public void editAdmin(Admin admin){
-        try{
+
+    public void editAdmin(Admin admin) {
+        try {
             PreparedStatement statement = Database.getConnection().prepareStatement("update admins set full_name=?, dob=?, gender=?, address=?, phoneNumber=?");
             statement.setString(1, admin.getFullName());
             statement.setString(2, String.valueOf(admin.getDob()));

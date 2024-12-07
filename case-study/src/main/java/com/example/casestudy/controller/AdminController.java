@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 @WebServlet(name = "adminController", urlPatterns = {"/logins", "/adminProfile"})
 //@WebServlet(name = "adminController", urlPatterns = "/logins")
 public class AdminController extends HttpServlet {
@@ -26,23 +27,24 @@ public class AdminController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            List<Admin> admins = adminService.getAdmin();
-            req.setAttribute("admin", admins);
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/adminProfile.jsp");
-            dispatcher.forward(req, resp);
+        List<Admin> admins = adminService.getAdmin();
+        req.setAttribute("admin", admins);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/adminProfile.jsp");
+        dispatcher.forward(req, resp);
     }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
         System.out.println(action);
-        if("login".equals(action)){
+        if ("login".equals(action)) {
             String userName = req.getParameter("user_name");
             String password = req.getParameter("password");
             Admin admin = new Admin(userName, password);
             boolean isInformation = iAdmin.checkInformation(admin);
-            if(isInformation){
+            if (isInformation) {
                 req.setAttribute("message", "Login successfully");
                 List<Event> eventList = iEventService.getEvents();
                 req.setAttribute("events", eventList);
