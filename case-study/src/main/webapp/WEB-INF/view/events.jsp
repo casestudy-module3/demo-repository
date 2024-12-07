@@ -50,7 +50,7 @@
                                         data-bs-toggle="modal"
                                         data-bs-target="#updateEventModal"
                                         style="width:80px; color:white;"
-                                        onclick="setIdUpdate(${event.idEvents})">
+                                        onclick="setEditForm(${event.idEvents}, '${event.eventName}', '${event.eventStart}', '${event.imgEvent}', '${event.location}', '${event.description}', ${event.isStatus}, ${event.ticketToSell})">
                                 </button>
                                 <button type="button"
                                         class="btn btn-secondary bi bi-eye-fill"
@@ -63,7 +63,7 @@
                                         data-bs-toggle="modal"
                                         data-bs-target="#deleteEventModal"
                                         style="width:80px;"
-                                        onclick="setEventId(${event.idEvents})">
+                                        onclick="setDeleteModal(${event.idEvents}, '${event.eventName}')">
                                 </button>
                             </td>
                         </tr>
@@ -95,6 +95,9 @@
                                 </div>
                             </div>
                         </div>
+                        <%@include file="/WEB-INF/include/deleteEvent.jsp" %>
+                        <%@include file="/WEB-INF/include/addEvent.jsp" %>
+                        <%@include file="/WEB-INF/include/update.jsp" %>
                     </c:forEach>
                     </tbody>
                 </table>
@@ -102,27 +105,32 @@
         </div>
     </div>
 </div>
-<%@include file="/WEB-INF/include/deleteEvent.jsp" %>
-<%@include file="/WEB-INF/include/addEvent.jsp" %>
-<%@include file="/WEB-INF/include/update.jsp" %>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 <script>
-    function setEventId(eventId) {
+    function setDeleteModal(eventId, eventName) {
         document.getElementById("deleteEventId").value = eventId;
+        document.getElementById("deleteEventName").innerText = eventName;
     }
-
     function setIdUpdate(eventId) {
         document.getElementById("editEventId").value = eventId;
+    }
+    function setEditForm(id, name, startDate, img, location, description, status, tickets) {
+        document.getElementById("editEventId").value = id;
+        document.getElementById("editrecipient-name").value = name;
+        document.getElementById("editdate-time").value = startDate;
+        // Bạn có thể hiển thị ảnh ban đầu ở đâu đó trong modal nếu cần
+        document.getElementById("editlocation-text").value = location;
+        document.getElementById("editmessage-text").value = description;
+        document.getElementById("editstatus").value = status ? "1" : "0";
+        document.getElementById("editnumber-ticket").value = tickets;
     }
 </script>
 <script>
     function previewImage(imageSrc) {
-        // Gán đường dẫn hình ảnh vào modal
         document.getElementById("previewImage").src = imageSrc;
-        // Mở modal để xem trước hình ảnh
         var imagePreviewModal = new bootstrap.Modal(document.getElementById("imagePreviewModal"));
         imagePreviewModal.show();
     }

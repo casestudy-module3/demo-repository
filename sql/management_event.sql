@@ -102,11 +102,7 @@ VALUES
 ('John Doe', 'johndoe@example.com', 123456789, true),
 ('Jane Smith', 'janesmith@example.com', 987654321, false),
 ('Alice Brown', 'alicebrown@example.com', 456123789, true);
-INSERT INTO customers (id, name_customer, email, phone_number, status_customer)
-VALUES
-( 'David Smith', 'david.smith@example.com', 1237890, true),
-( 'Emily Johnson', 'emily.johnson@example.com', 98710, true),
-( 'Frank White', 'frank.white@example.com', 4567123, false);
+
 
 
 
