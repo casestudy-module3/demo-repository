@@ -53,6 +53,7 @@
                     </tbody>
                 </table>
             </div>
+            <%@include file="../include/deleteConfirm.jsp"%>
         </div>
     </div>
 </div>

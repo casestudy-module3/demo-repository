@@ -11,13 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-@WebServlet(name="customerCotroller", value="/customers")
+
+@WebServlet(name = "customerCotroller", value = "/customers")
 public class CustomerController extends HttpServlet {
     private static ICustomerService customerService = new CustomerService();
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
-        if(action ==null) action = "";
+        if (action == null) action = "";
 
         switch (action) {
             case "search":

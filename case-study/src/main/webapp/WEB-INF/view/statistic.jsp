@@ -46,6 +46,7 @@
                 </div>
             </div>
         </div>
+        <%@include file="../include/deleteConfirm.jsp"%>
     </div>
 </div>
 </body>

@@ -57,13 +57,13 @@ public class EventController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
-        int id ;
+        int id;
         String eventName;
         LocalDate eventStart;
-        String imgEvent=null;
-        String location ;
+        String imgEvent = null;
+        String location;
         String description;
-        Boolean isStatus ;
+        Boolean isStatus;
         Integer ticketToSell;
         if (action == null) action = "";
         switch (action) {

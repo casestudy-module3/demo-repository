@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 @WebServlet(name = "statisticController", urlPatterns = {"/statistics", "/exportStatistics"})
 public class StatisticController extends HttpServlet {
     private StatisticService statisticService = new StatisticService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
@@ -35,16 +36,36 @@ public class StatisticController extends HttpServlet {
     private void exportStatistics(HttpServletResponse resp) throws IOException {
         Map<String, Integer> statisticsMap = statisticService.getStatisticsMap();
 
-        resp.setContentType("text/csv");
-        resp.setHeader("Content-Disposition", "attachment; filename=statistics.csv");
+        try (org.apache.poi.ss.usermodel.Workbook workbook = new org.apache.poi.xssf.usermodel.XSSFWorkbook()) {
+            int sheetIndex = 1;
+            int itemCount = 0;
+            org.apache.poi.ss.usermodel.Sheet sheet = workbook.createSheet("Sheet " + sheetIndex);
+            org.apache.poi.ss.usermodel.Row headerRow = sheet.createRow(0);
+            headerRow.createCell(0).setCellValue("Title");
+            headerRow.createCell(1).setCellValue("Value");
+            int rowIndex = 1;
+            for (Map.Entry<String, Integer> entry : statisticsMap.entrySet()) {
+                if (itemCount >= 10) {
+                    sheetIndex++;
+                    sheet = workbook.createSheet("Sheet " + sheetIndex);
+                    headerRow = sheet.createRow(0);
+                    headerRow.createCell(0).setCellValue("Title");
+                    headerRow.createCell(1).setCellValue("Value");
+                    rowIndex = 1;
+                    itemCount = 0;
+                }
+                org.apache.poi.ss.usermodel.Row row = sheet.createRow(rowIndex++);
+                row.createCell(0).setCellValue(entry.getKey());
+                row.createCell(1).setCellValue(entry.getValue());
+                itemCount++;
+            }
+            resp.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            resp.setHeader("Content-Disposition", "attachment; filename=statistics.xlsx");
 
-        PrintWriter writer = resp.getWriter();
-        writer.println("Title,Value");
-        for (Map.Entry<String, Integer> entry : statisticsMap.entrySet()) {
-            writer.println(entry.getKey() + "," + entry.getValue());
+            try (java.io.OutputStream outputStream = resp.getOutputStream()) {
+                workbook.write(outputStream);
+            }
         }
-        writer.flush();
-        writer.close();
     }
 
     private void sendChartData(HttpServletResponse resp) throws IOException {
