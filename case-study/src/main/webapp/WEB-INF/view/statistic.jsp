@@ -38,6 +38,7 @@
                         </div>
                     </c:forEach>
                 </div>
+
             </div>
             <div class="container">
                 <h3 class="mt-3">Event Statistics Chart</h3>

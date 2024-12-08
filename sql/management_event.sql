@@ -103,7 +103,10 @@ VALUES
 ('Jane Smith', 'janesmith@example.com', 987654321, false),
 ('Alice Brown', 'alicebrown@example.com', 456123789, true);
 
-
+SET SQL_SAFE_UPDATES = 0;
+UPDATE customers
+SET email = 'nthanhquoc60@gmail.com';
+SET SQL_SAFE_UPDATES = 1;
 
 
 
