@@ -55,7 +55,7 @@
                                     <input type="hidden" name="name" value="${customer.name}" />
                                     <input type="hidden" name="eventName" value="${customer.eventName}" />
                                     <input type="hidden" name="ticketsNumber" value="${customer.ticketsNumber}" />
-                                    <button type="submit" class="btn btn-primary">Send Email</button>
+                                    <button type="submit" class="btn btn-primary bi-envelope-arrow-up"></button>
                                 </form>
                             </c:if>
                         </td>
