@@ -98,7 +98,6 @@
                 </div>
             </div>
         </div>
-        <%@include file="../include/deleteConfirm.jsp"%>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -108,16 +107,17 @@
         let select = document.getElementById("gender");
         inputs.forEach(function(input) {
         input.removeAttribute("readonly");
-        });
+    });
         let saveButton = document.getElementById("saveButton");
         if (saveButton) {
         saveButton.disabled = false;
-        }
+    }
         let editButton = document.getElementById("editButton");
         if (editButton) {
         editButton.disabled = true;
-        }
+    }
     }
 </script>
+<%@include file="/WEB-INF/include/logOut.jsp" %>
 </body>
 </html>

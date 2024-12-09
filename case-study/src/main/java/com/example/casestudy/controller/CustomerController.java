@@ -28,12 +28,28 @@ public class CustomerController extends HttpServlet {
                 request.setAttribute("customers", customerByName);
                 request.getRequestDispatcher("WEB-INF/view/customer.jsp").forward(request, response);
                 break;
-            case "customers":
+            default:
                 List<Customer> customerList = customerService.getAll();
                 request.setAttribute("customers", customerList);
                 request.getRequestDispatcher("WEB-INF/view/customer.jsp").forward(request, response);
                 break;
+
         }
 
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        String action = req.getParameter("action");
+        if(action ==null) action = "";
+        switch (action) {
+            case "delete":
+                int id = Integer.parseInt(req.getParameter("id"));
+                Boolean status = Boolean.valueOf(req.getParameter("status"));
+                customerService.delete(id, status);
+                resp.sendRedirect(req.getContextPath() + "/customers");
+                break;
+        }
     }
 }

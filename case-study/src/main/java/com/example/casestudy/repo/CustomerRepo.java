@@ -12,21 +12,20 @@ import java.util.List;
 
 public class CustomerRepo {
     private static List<Customer> customers = new ArrayList<Customer>();
-
     public List<Customer> getCustomers() {
         customers.clear();
         try {
             PreparedStatement statement = Database.getConnection().prepareStatement("SELECT c.id, c.name_customer, c.email, c.phone_number, c.status_customer, t.time_book, pt.id_ticket_type, tt.name_ticket, COUNT(t.id) AS tickets_number, eo.name_event FROM customers c JOIN tickets t ON c.id = t.id_customer JOIN price_tickets pt ON t.id_price = pt.id_price_ticket JOIN events_organized eo ON t.id_event = eo.id JOIN ticket_types tt ON pt.id_ticket_type = tt.id \n" +
                     "WHERE t.id_event = eo.id GROUP BY c.id, c.name_customer, c.email, c.phone_number, c.status_customer, t.time_book, pt.id_ticket_type, tt.name_ticket, eo.name_event;");
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
+            while (resultSet.next()){
                 Integer id = resultSet.getInt("id");
                 String name = resultSet.getString("name_customer");
                 String address = resultSet.getString("email");
                 String phone = resultSet.getString("phone_number");
                 Boolean status = resultSet.getBoolean("status_customer");
                 LocalDate timeBook = resultSet.getDate("time_book").toLocalDate();
-                String ticketType = resultSet.getString("name_ticket");
+                String ticketType = resultSet.getString("id_ticket_type");
                 Integer ticketsNumber = resultSet.getInt("tickets_number");
                 String eventName = resultSet.getString("name_event");
                 customers.add(new Customer(id, name, address, phone, status, timeBook, ticketType, ticketsNumber, eventName));
@@ -36,15 +35,16 @@ public class CustomerRepo {
         }
         return customers;
     }
-
-    public List<Customer> searchCustomerByName(String name) {
+    public List<Customer> searchCustomerByName( String name) {
         customers.clear();
-        try {
-            String sql = "SELECT c.id, c.name_customer, c.email,c.phone_number, c.status_customer,t.time_book,pt.id_ticket_type,tt.name_ticket,COUNT(t.id) AS tickets_number, eo.name_event FROM customers c JOIN tickets t ON c.id = t.id_customer JOIN price_tickets pt ON t.id_price = pt.id_price_ticket JOIN events_organized eo ON t.id_event = eo.id JOIN ticket_types tt ON pt.id_ticket_type = tt.id WHERE c.name_customer like ? GROUP BY c.id,c.name_customer, c.email,c.phone_number, c.status_customer, t.time_book, pt.id_ticket_type, tt.name_ticket, eo.name_event;";
+        try{
+            String sql = "SELECT c.id, c.name_customer, c.email,c.phone_number, c.status_customer,t.time_book,pt.id_ticket_type,tt.name_ticket,COUNT(t.id) AS tickets_number, eo.name_event FROM customers c JOIN tickets t ON c.id = t.id_customer JOIN price_tickets pt ON t.id_price = pt.id_price_ticket JOIN events_organized eo ON t.id_event = eo.id JOIN ticket_types tt ON pt.id_ticket_type = tt.id WHERE c.name_customer like ? or c.phone_number like ? GROUP BY c.id,c.name_customer, c.email,c.phone_number, c.status_customer, t.time_book, pt.id_ticket_type, tt.name_ticket, eo.name_event;";
+
             PreparedStatement statement = Database.getConnection().prepareStatement(sql);
-            statement.setString(1, "%" + name + "%");
+            statement.setString(1, "%"+name +"%" );
+            statement.setString(2, "%"+name+"%");
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
+            while (resultSet.next()){
                 Integer id = resultSet.getInt("id");
                 String nameCustomer = resultSet.getString("name_customer");
                 String address = resultSet.getString("email");
@@ -60,5 +60,33 @@ public class CustomerRepo {
             System.out.println("Error");
         }
         return customers;
+    }
+    public void deleteCustomer(int id, boolean status) {
+
+        String query1 = "DELETE FROM event_tickets_sale WHERE id_ticket = ?";
+        try{
+            PreparedStatement statement = Database.getConnection().prepareStatement(query1);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error");;
+        }
+        String query2 = "DELETE FROM tickets WHERE id_customer = ?";
+        try{
+            PreparedStatement statement = Database.getConnection().prepareStatement(query2);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error");
+        }
+        String query3 = "DELETE FROM customers WHERE id = ? AND status_customer =?";
+        try{
+            PreparedStatement statement = Database.getConnection().prepareStatement(query3);
+            statement.setInt(1, id);
+            statement.setBoolean(2, status);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error");
+        }
     }
 }

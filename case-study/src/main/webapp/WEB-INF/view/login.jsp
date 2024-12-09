@@ -26,9 +26,11 @@
                 </c:if>
             </div>
         </form>
-        <div id="formFooter">
-            <a class="underlineHover" href="#">Forgot Password?</a>
-        </div>
+        <form method="post" action="logins?action=forgot-password">
+            <input type="hidden"  value="forgot-password" name ="action">
+            <input class="forgot" value="Forgot Password">
+        </form>
+
     </div>
 </div>
 </body>
