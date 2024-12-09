@@ -2,6 +2,7 @@ package com.example.casestudy.repo;
 
 import com.example.casestudy.model.Admin;
 
+import javax.servlet.http.HttpSession;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

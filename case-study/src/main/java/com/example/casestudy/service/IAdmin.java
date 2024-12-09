@@ -8,4 +8,5 @@ public interface IAdmin {
     List<Admin> getAdmin();
     boolean checkInformation(Admin admin);
     boolean updateInformation(Admin admin);
+    boolean logOut(String action);
 }

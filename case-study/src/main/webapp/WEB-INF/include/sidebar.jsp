@@ -44,8 +44,17 @@
                 <li>
                     <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#confirmSignOutModal">Sign out</a></li>
+                <li>
+                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#signOutModal">
+                        Sign out
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 </div>
+<script>
+    function signOut(){
+            document.getElementById("signOutModal").value;
+    }
+</script>

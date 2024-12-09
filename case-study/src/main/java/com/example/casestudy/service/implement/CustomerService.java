@@ -18,4 +18,10 @@ public class CustomerService implements ICustomerService {
         return customerRepo.searchCustomerByName(name);
 
     }
+
+    @Override
+    public boolean delete(int id, Boolean status) {
+        customerRepo.deleteCustomer(id, status);
+        return true;
+    }
 }

@@ -22,6 +22,12 @@ public class AdminService implements IAdmin {
         adminRepo.editAdmin(admin);
         return true;
     }
+
+    @Override
+    public boolean logOut(String action) {
+        return false;
+    }
+
     @Override
     public List<Admin> getAdmin(){
         return adminRepo.getManagementEventData();
