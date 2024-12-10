@@ -19,6 +19,9 @@
                     <div class="mb-3">
                         <label for="editimg-text" class="col-form-label">Image:</label>
                         <input type="file" id="editimg-text" class="form-control" name="imgEvent">
+                        <div class="text-center mt-2">
+                            <img id="editEventImagePreview" src="" alt="Event Image Preview" class="img-fluid" style="max-height: 200px;">
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="editlocation-text" class="col-form-label">Location:</label>
