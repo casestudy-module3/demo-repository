@@ -7,10 +7,7 @@ import com.example.casestudy.service.implement.EventService;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,27 +25,42 @@ import java.util.List;
 )
 public class EventController extends HttpServlet {
     private static IEventService eventService = new EventService();
-
+    HttpSession session;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
+        session = req.getSession();
+        session.getAttribute("isInformation");
+        boolean isInfor = (boolean) session.getAttribute("isInformation");
         if (action == null) action = "";
         switch (action) {
             case "search":
+                if(isInfor){
                 String name = req.getParameter("name");
                 List<Event> searchResults = eventService.searchEventByName(name);
                 req.setAttribute("events", searchResults);
                 req.getRequestDispatcher("/WEB-INF/view/events.jsp").forward(req, resp);
+                }else {
+                    req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, resp);
+                }
                 break;
             case "edit":
+                if(isInfor){
                 req.getRequestDispatcher("/WEB-INF/view/events.jsp").forward(req, resp);
+                 }else {
+                        req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, resp);
+                    }
                 break;
 
             default:
+                if(isInfor){
                 List<Event> events = eventService.getEvents();
                 req.setAttribute("events", events);
                 req.getRequestDispatcher("/WEB-INF/view/events.jsp").forward(req, resp);
+                }else {
+                    req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, resp);
+                }
                 break;
         }
     }
@@ -57,6 +69,13 @@ public class EventController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
+        session = req.getSession();
+        session.getAttribute("isInformation");
+        boolean isInformation = false;
+        if (session.getAttribute("isInformation") != null) {
+             isInformation = (boolean) session.getAttribute("isInformation");
+        }
+
         int id;
         String eventName;
         LocalDate eventStart;
@@ -68,11 +87,16 @@ public class EventController extends HttpServlet {
         if (action == null) action = "";
         switch (action) {
             case "delete":
+                if(isInformation){
                 id = Integer.parseInt(req.getParameter("id"));
                 eventService.deleteEvent(id);
                 resp.sendRedirect(req.getContextPath() + "/events");
+                }else {
+                    req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, resp);
+                }
                 break;
             case "edit":
+                if(isInformation){
                 id = Integer.parseInt(req.getParameter("id"));
                 String name = req.getParameter("eventName");
                 LocalDate date = LocalDate.parse(req.getParameter("eventStart"));
@@ -99,8 +123,12 @@ public class EventController extends HttpServlet {
                 Event changeEvent = new Event(name, date, imgEvent, location, description, isStatus, ticketToSell);
                 eventService.updateEvent(id, changeEvent);
                 resp.sendRedirect(req.getContextPath() + "/events");
+                }else {
+                        req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, resp);
+                        }
                 break;
             case "add":
+                if(isInformation){
                 eventName = req.getParameter("eventName");
                 eventStart = LocalDate.parse(req.getParameter("eventStart"));
                 imgEvent = req.getParameter("imgEvent");
@@ -126,6 +154,9 @@ public class EventController extends HttpServlet {
                 Event newEvent = new Event(eventName, eventStart, imgEvent, location, description, isStatus, ticketToSell);
                 eventService.addEvent(newEvent);
                 resp.sendRedirect(req.getContextPath() + "/events");
+                }else {
+                    req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, resp);
+                }
                 break;
         }
     }

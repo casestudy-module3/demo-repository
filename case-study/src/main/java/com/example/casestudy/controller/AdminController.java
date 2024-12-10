@@ -23,17 +23,30 @@ public class AdminController extends HttpServlet {
     private static IAdmin iAdmin = new AdminService();
     private static IEventService iEventService = new EventService();
     private AdminService adminService = new AdminService();
-
+    HttpSession session;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            session = req.getSession();
+            boolean isInfor = false;
+        if(session.getAttribute("admin") != null){
+            isInfor = (boolean) session.getAttribute("isInformation");
+        }
+            if(isInfor){
             List<Admin> admins = adminService.getAdmin();
             req.setAttribute("admin", admins);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/adminProfile.jsp");
             dispatcher.forward(req, resp);
+            }else {
+                req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, resp);
+            }
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
+        session = req.getSession();
+        boolean isInfor = false;
+        if(session.getAttribute("admin") != null){
+            isInfor = (boolean) session.getAttribute("isInformation");
+        }
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
         System.out.println(action);
@@ -44,6 +57,7 @@ public class AdminController extends HttpServlet {
                 Admin admin = new Admin(userName, password);
                 boolean isInformation = iAdmin.checkInformation(admin);
                 session.setAttribute("isInformation", isInformation);
+                session.setMaxInactiveInterval(10);
                 if(isInformation){
                     req.setAttribute("message", "Login successfully");
                     List<Event> eventList = iEventService.getEvents();
@@ -59,6 +73,7 @@ public class AdminController extends HttpServlet {
                 req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, resp);
                 break;
             case "save":
+                if(isInfor){
                 String name = req.getParameter("fullName");
                 LocalDate dob = LocalDate.parse(req.getParameter("dob"));
                 Boolean gender = Boolean.valueOf(req.getParameter("gender"));
@@ -67,6 +82,9 @@ public class AdminController extends HttpServlet {
                 Admin newInformationAdmin = new Admin(name, dob, gender, address, phone);
                 iAdmin.updateInformation(newInformationAdmin);
                 resp.sendRedirect(req.getContextPath() + "/adminProfile");
+                } else {
+                    req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, resp);
+                }
                 break;
             case "forgot-password":
                 req.getRequestDispatcher("/WEB-INF/view/forgotPassword.jsp").forward(req,resp);
