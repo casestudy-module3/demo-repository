@@ -124,7 +124,7 @@
         document.getElementById("editEventId").value = id;
         document.getElementById("editrecipient-name").value = name;
         document.getElementById("editdate-time").value = startDate;
-        // Bạn có thể hiển thị ảnh ban đầu ở đâu đó trong modal nếu cần
+        document.getElementById("editEventImagePreview").src = img;
         document.getElementById("editlocation-text").value = location;
         document.getElementById("editmessage-text").value = description;
         document.getElementById("editstatus").value = status ? "1" : "0";

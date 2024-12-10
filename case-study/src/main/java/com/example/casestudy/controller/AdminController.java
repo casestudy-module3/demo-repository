@@ -29,7 +29,7 @@ public class AdminController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             session = req.getSession();
             boolean isInfor = false;
-        if(session.getAttribute("admin") != null){
+        if(session.getAttribute("isInformation") != null){
             isInfor = (boolean) session.getAttribute("isInformation");
         }
             if(isInfor){
@@ -40,12 +40,13 @@ public class AdminController extends HttpServlet {
             }else {
                 req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, resp);
             }
+
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         session = req.getSession();
         boolean isInfor = false;
-        if(session.getAttribute("admin") != null){
+        if(session.getAttribute("isInformation") != null){
             isInfor = (boolean) session.getAttribute("isInformation");
         }
         req.setCharacterEncoding("UTF-8");
