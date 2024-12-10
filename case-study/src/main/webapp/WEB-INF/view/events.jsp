@@ -104,7 +104,7 @@
             </div>
             <%@include file="../include/deleteConfirm.jsp"%>
         </div>
-    </div
+    </div>
 </div>
 <%@include file="/WEB-INF/include/logOut.jsp" %>
 

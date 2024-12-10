@@ -19,7 +19,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 @WebServlet(name = "adminController", urlPatterns = {"/logins", "/adminProfile"})
-//@WebServlet(name = "adminController", urlPatterns = "/logins")
 public class AdminController extends HttpServlet {
     private static IAdmin iAdmin = new AdminService();
     private static IEventService iEventService = new EventService();
