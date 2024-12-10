@@ -57,8 +57,9 @@ public class AdminController extends HttpServlet {
                 Admin admin = new Admin(userName, password);
                 boolean isInformation = iAdmin.checkInformation(admin);
                 session.setAttribute("isInformation", isInformation);
-                session.setMaxInactiveInterval(10);
+                session.setMaxInactiveInterval(120);
                 if(isInformation){
+                    session.setAttribute("admin", admin);
                     req.setAttribute("message", "Login successfully");
                     List<Event> eventList = iEventService.getEvents();
                     req.setAttribute("events", eventList);
@@ -81,6 +82,7 @@ public class AdminController extends HttpServlet {
                 String phone = req.getParameter("phone");
                 Admin newInformationAdmin = new Admin(name, dob, gender, address, phone);
                 iAdmin.updateInformation(newInformationAdmin);
+                session.setAttribute("admin", newInformationAdmin);
                 resp.sendRedirect(req.getContextPath() + "/adminProfile");
                 } else {
                     req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, resp);
