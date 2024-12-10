@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
@@ -17,19 +18,38 @@ import com.google.gson.Gson;
 @WebServlet(name = "statisticController", urlPatterns = {"/statistics", "/exportStatistics"})
 public class StatisticController extends HttpServlet {
     private StatisticService statisticService = new StatisticService();
-
+    HttpSession session;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+        session = req.getSession();
+        session.getAttribute("isInformation");
+        boolean isInformation = false;
+        if(session.getAttribute("isInformation") != null){
+            isInformation = (boolean) session.getAttribute("isInformation");
+        }
         if ("export".equals(action)) {
-            exportStatistics(resp);
+            if(isInformation) {
+                exportStatistics(resp);
+            } else {
+                req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, resp);
+            }
+
         } else if ("chartData".equals(action)) {
+            if(isInformation) {
             sendChartData(resp);
+            } else {
+                req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, resp);
+            }
         } else {
+            if(isInformation) {
             req.setCharacterEncoding("UTF-8");
             Map<String, Integer> statisticsMap = statisticService.getStatisticsMap();
             req.setAttribute("statisticsMap", statisticsMap);
             req.getRequestDispatcher("/WEB-INF/view/statistic.jsp").forward(req, resp);
+            } else {
+                req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, resp);
+            }
         }
     }
 
